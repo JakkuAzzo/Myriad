@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Myriad - Statistics</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="ambient"></div>
+    <main class="shell">
+      <header class="hero">
+        <p class="kicker">Myriad</p>
+        <h1>Statistics</h1>
+        <p>Visualise your private local metrics across chat and browser activity.</p>
+      </header>
+
+      <section class="controls">
+        <label class="toggle">
+          <input type="checkbox" id="consentToggle" />
+          <span>Enable data collection</span>
+        </label>
+        <select id="daysSelect">
+          <option value="7">Last 7 days</option>
+          <option value="14">Last 14 days</option>
+          <option value="30">Last 30 days</option>
+        </select>
+        <select id="deviceSelect">
+          <option value="all">All devices</option>
+        </select>
+        <button id="refreshBtn">Refresh</button>
+        <button id="exportBtn">Export JSON</button>
+        <button id="deleteBtn" class="danger">Delete All Data</button>
+        <a href="/" class="button-link">Back to Home</a>
+      </section>
+
+      <section class="cards" id="cards"></section>
+
+      <section class="grid">
+        <article class="panel chart-panel">
+          <h2>Active Hours</h2>
+          <canvas id="hoursChart"></canvas>
+        </article>
+        <article class="panel chart-panel">
+          <h2>Category Usage (Minutes)</h2>
+          <canvas id="categoryChart"></canvas>
+        </article>
+        <article class="panel chart-panel">
+          <h2>Sentiment Trend</h2>
+          <canvas id="sentimentChart"></canvas>
+        </article>
+        <article class="panel chart-panel">
+          <h2>Chat Frequency</h2>
+          <canvas id="chatChart"></canvas>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h2>Device Breakdown</h2>
+        <ul id="deviceBreakdown"></ul>
+      </section>
+
+      <section class="panel">
+        <h2>Fix Unknown Device Events</h2>
+        <div class="controls">
+          <select id="reassignDeviceSelect">
+            <option value="phone">Phone</option>
+            <option value="laptop" selected>Laptop</option>
+            <option value="tablet">Tablet</option>
+            <option value="workstation">Workstation</option>
+            <option value="other">Other</option>
+          </select>
+          <button id="reassignUnknownBtn">Reassign Unknown Events</button>
+        </div>
+        <p id="reassignStatus" class="muted"></p>
+      </section>
+
+      <section class="panel">
+        <h2>Top Topics</h2>
+        <ul id="topics"></ul>
+      </section>
+    </main>
+
+    <script src="/stats.js"></script>
+  </body>
+</html>

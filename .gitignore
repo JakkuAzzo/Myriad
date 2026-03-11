@@ -1,0 +1,4 @@
+.DS_Store
+myriad-app/node_modules/
+myriad-app/data/*.db
+myriad-app/test/tmp-myriaddb.sqlite

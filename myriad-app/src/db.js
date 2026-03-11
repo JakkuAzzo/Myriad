@@ -1,0 +1,393 @@
+const path = require('path');
+const Database = require('better-sqlite3');
+
+const dbPath = process.env.MYRIAD_DB_PATH || path.join(__dirname, '..', 'data', 'myriad.db');
+const db = new Database(dbPath);
+
+db.pragma('journal_mode = WAL');
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  );
+
+  CREATE TABLE IF NOT EXISTS auth_tokens (
+    token TEXT PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  );
+
+  CREATE TABLE IF NOT EXISTS settings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT NOT NULL,
+    UNIQUE(user_id, key),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  );
+
+  CREATE TABLE IF NOT EXISTS events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    device TEXT NOT NULL DEFAULT 'unknown',
+    occurred_at TEXT NOT NULL,
+    source TEXT NOT NULL,
+    category TEXT NOT NULL,
+    duration_minutes INTEGER NOT NULL DEFAULT 0,
+    sentiment REAL,
+    topic TEXT,
+    identity_hash TEXT,
+    metadata TEXT,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_events_occurred_at ON events (occurred_at);
+  CREATE INDEX IF NOT EXISTS idx_events_source ON events (source);
+  CREATE INDEX IF NOT EXISTS idx_events_category ON events (category);
+`);
+
+function hasColumn(tableName, columnName) {
+  const cols = db.prepare(`PRAGMA table_info(${tableName})`).all();
+  return cols.some((c) => c.name === columnName);
+}
+
+function isLegacySettingsSchema() {
+  const cols = db.prepare('PRAGMA table_info(settings)').all();
+  const keyCol = cols.find((c) => c.name === 'key');
+  const hasUserId = cols.some((c) => c.name === 'user_id');
+  return Boolean(keyCol && keyCol.pk === 1) || !hasUserId;
+}
+
+if (isLegacySettingsSchema()) {
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS settings_v2 (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      key TEXT NOT NULL,
+      value TEXT NOT NULL,
+      UNIQUE(user_id, key),
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    );
+
+    INSERT OR IGNORE INTO settings_v2 (user_id, key, value)
+    SELECT 1, key, value FROM settings;
+
+    DROP TABLE settings;
+    ALTER TABLE settings_v2 RENAME TO settings;
+  `);
+}
+
+if (!hasColumn('events', 'user_id')) {
+  db.exec('ALTER TABLE events ADD COLUMN user_id INTEGER');
+  db.exec('UPDATE events SET user_id = 1 WHERE user_id IS NULL');
+}
+
+if (!hasColumn('events', 'device')) {
+  db.exec("ALTER TABLE events ADD COLUMN device TEXT NOT NULL DEFAULT 'unknown'");
+}
+
+db.exec('CREATE INDEX IF NOT EXISTS idx_events_user_id ON events (user_id)');
+db.exec('CREATE INDEX IF NOT EXISTS idx_events_device ON events (device)');
+
+if (!hasColumn('events', 'metadata')) {
+  db.exec('ALTER TABLE events ADD COLUMN metadata TEXT');
+}
+
+db.exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_settings_user_key ON settings(user_id, key)');
+
+function createUser(username, passwordHash) {
+  const result = db
+    .prepare('INSERT INTO users (username, password_hash) VALUES (?, ?)')
+    .run(username, passwordHash);
+  return result.lastInsertRowid;
+}
+
+function getUserByUsername(username) {
+  return db.prepare('SELECT * FROM users WHERE username = ?').get(username);
+}
+
+function getUserById(id) {
+  return db.prepare('SELECT id, username, created_at FROM users WHERE id = ?').get(id);
+}
+
+function getOrCreateLocalUser() {
+  const existing = getUserByUsername('local');
+  if (existing) {
+    return getUserById(existing.id);
+  }
+
+  const localHash = '$2b$10$2I8Dj5g8VGw2Mbc6B.zm0u6F0dDD3vN4xI2a2HqesV3a3U5c8xG1C';
+  const id = createUser('local', localHash);
+  return getUserById(id);
+}
+
+function listUsers() {
+  return db
+    .prepare('SELECT id, username, created_at FROM users ORDER BY username ASC')
+    .all();
+}
+
+function createAuthToken(token, userId) {
+  db.prepare('INSERT INTO auth_tokens (token, user_id) VALUES (?, ?)').run(token, userId);
+}
+
+function getUserByToken(token) {
+  return db
+    .prepare(
+      `
+      SELECT u.id, u.username, u.created_at
+      FROM auth_tokens t
+      JOIN users u ON u.id = t.user_id
+      WHERE t.token = ?
+    `
+    )
+    .get(token);
+}
+
+function deleteAuthToken(token) {
+  db.prepare('DELETE FROM auth_tokens WHERE token = ?').run(token);
+}
+
+function getSetting(userId, key) {
+  const row = db
+    .prepare('SELECT value FROM settings WHERE user_id = ? AND key = ?')
+    .get(userId, key);
+  return row ? row.value : null;
+}
+
+function setSetting(userId, key, value) {
+  db.prepare(
+    `
+    INSERT INTO settings (user_id, key, value)
+    VALUES (?, ?, ?)
+    ON CONFLICT(user_id, key) DO UPDATE SET value=excluded.value
+  `
+  ).run(userId, key, String(value));
+}
+
+function insertEvent(userId, event) {
+  const stmt = db.prepare(`
+    INSERT INTO events (
+      user_id,
+      device,
+      occurred_at,
+      source,
+      category,
+      duration_minutes,
+      sentiment,
+      topic,
+      identity_hash,
+      metadata
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  stmt.run(
+    userId,
+    event.device || 'unknown',
+    event.occurredAt,
+    event.source,
+    event.category,
+    event.durationMinutes,
+    event.sentiment,
+    event.topic,
+    event.identityHash,
+    event.metadata || null
+  );
+}
+
+function insertManyEvents(userId, events) {
+  const tx = db.transaction((rows) => {
+    for (const row of rows) {
+      insertEvent(userId, row);
+    }
+  });
+  tx(events);
+}
+
+function deleteAllEvents(userId) {
+  db.prepare('DELETE FROM events WHERE user_id = ?').run(userId);
+}
+
+function reassignUnknownEventsToDevice(userId, targetDevice) {
+  const device = typeof targetDevice === 'string' ? targetDevice.trim() : '';
+  if (!device || device === 'all' || device === 'unknown') {
+    return 0;
+  }
+
+  const result = db
+    .prepare(
+      `
+      UPDATE events
+      SET device = ?
+      WHERE user_id = ?
+      AND device = 'unknown'
+    `
+    )
+    .run(device.slice(0, 40), userId);
+
+  return result.changes || 0;
+}
+
+function exportEvents(userId) {
+  return db
+    .prepare('SELECT * FROM events WHERE user_id = ? ORDER BY occurred_at DESC')
+    .all(userId);
+}
+
+function getSummary(userId, days, device) {
+  const safeDays = Number.isFinite(days) ? Math.max(1, Math.min(days, 90)) : 7;
+  const safeDevice = typeof device === 'string' && device.trim() && device !== 'all' ? device.trim() : null;
+  const deviceClause = safeDevice ? 'AND device = ?' : '';
+  const deviceParams = safeDevice ? [safeDevice] : [];
+
+  const totals = db
+    .prepare(
+      `
+      SELECT
+        COUNT(*) AS totalEvents,
+        COALESCE(SUM(duration_minutes), 0) AS totalMinutes,
+        COUNT(DISTINCT DATE(occurred_at)) AS activeDays
+      FROM events
+      WHERE user_id = ?
+      AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${deviceClause}
+    `
+    )
+    .get(userId, safeDays, ...deviceParams);
+
+  const activeHours = db
+    .prepare(
+      `
+      SELECT
+        STRFTIME('%H', occurred_at) AS hour,
+        COUNT(*) AS count
+      FROM events
+      WHERE user_id = ?
+      AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${deviceClause}
+      GROUP BY hour
+      ORDER BY hour
+    `
+    )
+    .all(userId, safeDays, ...deviceParams);
+
+  const categoryUsage = db
+    .prepare(
+      `
+      SELECT
+        category,
+        COALESCE(SUM(duration_minutes), 0) AS minutes
+      FROM events
+      WHERE user_id = ?
+      AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${deviceClause}
+      GROUP BY category
+      ORDER BY minutes DESC
+    `
+    )
+    .all(userId, safeDays, ...deviceParams);
+
+  const sentimentTrend = db
+    .prepare(
+      `
+      SELECT
+        DATE(occurred_at) AS date,
+        ROUND(AVG(sentiment), 2) AS avgSentiment
+      FROM events
+      WHERE user_id = ?
+      AND sentiment IS NOT NULL
+      AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${deviceClause}
+      GROUP BY date
+      ORDER BY date
+    `
+    )
+    .all(userId, safeDays, ...deviceParams);
+
+  const conversationFrequency = db
+    .prepare(
+      `
+      SELECT
+        DATE(occurred_at) AS date,
+        COUNT(*) AS messages
+      FROM events
+      WHERE user_id = ?
+      AND source = 'chat'
+      AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${deviceClause}
+      GROUP BY date
+      ORDER BY date
+    `
+    )
+    .all(userId, safeDays, ...deviceParams);
+
+  const topTopics = db
+    .prepare(
+      `
+      SELECT
+        topic,
+        COUNT(*) AS count
+      FROM events
+      WHERE user_id = ?
+      AND topic IS NOT NULL
+      AND topic != ''
+      AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${deviceClause}
+      GROUP BY topic
+      ORDER BY count DESC
+      LIMIT 5
+    `
+    )
+    .all(userId, safeDays, ...deviceParams);
+
+  const deviceBreakdown = db
+    .prepare(
+      `
+      SELECT
+        device,
+        COUNT(*) AS events,
+        COALESCE(SUM(duration_minutes), 0) AS minutes
+      FROM events
+      WHERE user_id = ?
+      AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      GROUP BY device
+      ORDER BY minutes DESC
+    `
+    )
+    .all(userId, safeDays);
+
+  return {
+    totals,
+    selectedDevice: safeDevice || 'all',
+    activeHours,
+    categoryUsage,
+    sentimentTrend,
+    conversationFrequency,
+    topTopics,
+    deviceBreakdown,
+  };
+}
+
+module.exports = {
+  createUser,
+  getUserByUsername,
+  getUserById,
+  getOrCreateLocalUser,
+  listUsers,
+  createAuthToken,
+  getUserByToken,
+  deleteAuthToken,
+  getSetting,
+  setSetting,
+  insertEvent,
+  insertManyEvents,
+  deleteAllEvents,
+  reassignUnknownEventsToDevice,
+  exportEvents,
+  getSummary,
+};

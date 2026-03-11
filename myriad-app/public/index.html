@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Myriad Desktop</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="ambient"></div>
+    <main class="shell">
+      <header class="hero">
+        <p class="kicker">Myriad Desktop</p>
+        <h1>Select Browser, See Insights</h1>
+        <p>
+          Pick a browser export and Myriad will import it and open your statistics instantly.
+          Designed for private, local-first mindful usage.
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Why Myriad</h2>
+        <ul class="purpose-list">
+          <li>Turn invisible digital habits into patterns you can reflect on.</li>
+          <li>Compare habits across your own devices, not just total screen time.</li>
+          <li>Run personal experiments, such as no-phone mornings, and measure change.</li>
+          <li>Keep your data private and local while still getting useful insight.</li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Browser Connectors</h2>
+        <p class="muted">Choose your browser and select its exported history file.</p>
+        <div class="controls">
+          <label for="deviceLabel">Device</label>
+          <select id="deviceLabel">
+            <option value="phone">Phone</option>
+            <option value="laptop" selected>Laptop</option>
+            <option value="tablet">Tablet</option>
+            <option value="workstation">Workstation</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="browser-grid">
+          <button class="browser-btn" data-browser="chrome">Connect Chrome</button>
+          <button class="browser-btn" data-browser="safari">Connect Safari</button>
+          <button class="browser-btn" data-browser="firefox">Connect Firefox</button>
+          <button class="browser-btn" data-browser="edge">Connect Edge</button>
+        </div>
+        <div class="controls">
+          <button id="seedBtn">Load Demo Data</button>
+          <a href="/stats" class="button-link">Open Statistics</a>
+        </div>
+        <p id="status" class="muted"></p>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

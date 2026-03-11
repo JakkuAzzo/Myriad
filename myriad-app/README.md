@@ -1,96 +1,121 @@
-# Myriad - Mindful Habit Tracker
+# Myriad
 
-A local-first, privacy-preserving analytics app for Said Osman's FYP.
+Myriad is a local-first, privacy-preserving mindful habit tracker built for Said Osman's FYP.
 
-## What this MVP includes
+It collects and summarizes chat and browsing activity, then presents analytics in a desktop-friendly dashboard while keeping data on the local machine.
 
-- Local profile authentication and multi-user data isolation
-- Local event ingestion API for chat/browser habits
-- Real import connectors:
-  - WhatsApp TXT export parser
-  - Telegram JSON export parser
-  - Browser history JSON/CSV importer
-- Pseudonymisation using salted SHA-256 hashes
+## Key features
+
+- Local account system with per-user data separation
+- Consent-based data collection (on/off per user)
+- Event ingestion API for chat and browser usage
+- Import connectors for:
+  - WhatsApp text exports
+  - Telegram JSON exports
+  - Browser history JSON/CSV
+- Pseudonymization of identifiers using salted SHA-256 hashing
 - Local SQLite storage only (no cloud dependency)
-- Consent toggle to enable/disable data collection
-- Data controls: export and delete all data
-- Dedicated statistics page (`/stats`) with dashboard analytics:
+- Export and deletion endpoints for user data control
+- Dashboard statistics page with:
   - active hours
-  - category usage
+  - category distribution
   - sentiment trend
   - chat frequency
   - top topics
-- Automated tests for API and anonymisation behavior
+- Automated tests for API and anonymization logic
 
-## Quick start (Electron app)
+## Tech stack
 
-1. Install dependencies:
+- Node.js + Express
+- Electron (desktop shell)
+- SQLite via better-sqlite3
+- bcryptjs for password hashing
+
+## Getting started
+
+### 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-2. (Optional) set a custom anonymisation salt:
+### 2. Optional: set anonymization salt
+
+If not set, the app falls back to a development default. For real usage, use a strong secret.
 
 ```bash
-export MYRIAD_SALT="replace-with-long-random-secret"
+export MYRIAD_SALT="replace-with-a-long-random-secret"
 ```
 
-3. Run the desktop app:
+### 3. Run the app
+
+Desktop mode (Electron):
 
 ```bash
 npm start
 ```
 
-4. The Electron window opens Myriad automatically.
-
-## Run in browser-only mode
+Web mode (Express only):
 
 ```bash
 npm run start:web
 ```
 
-Open:
+Then open `http://localhost:3000`.
+
+## Available scripts
+
+- `npm start` - rebuild native module for Electron and launch desktop app
+- `npm run start:web` - start Express server in browser mode
+- `npm run dev` - same as web mode
+- `npm test` - rebuild native module for Node and run tests
+
+## Project structure
 
 ```text
-http://localhost:3000
+myriad-app/
+  data/                SQLite database files
+  electron/            Electron main and preload scripts
+  public/              Frontend pages and static assets
+  src/                 Server, DB access, connectors, anonymization
+  test/                Node test suites
 ```
 
-After browser import on the home page, Myriad opens statistics automatically.
+## API overview
 
-Direct statistics URL:
-
-```text
-http://localhost:3000/stats
-```
-
-## Run tests
-
-```bash
-npm test
-```
-
-## API summary
+### Health
 
 - `GET /api/health`
-- `POST /api/auth/register` body: `{ "username": "said", "password": "password123" }`
+
+### Authentication
+
+- `POST /api/auth/register`
 - `POST /api/auth/login`
 - `GET /api/auth/me` (Bearer token)
 - `POST /api/auth/logout` (Bearer token)
 - `GET /api/users` (Bearer token)
+
+### Consent
+
 - `GET /api/consent` (Bearer token)
-- `POST /api/consent` body: `{ "enabled": true|false }` (Bearer token)
-- `POST /api/events` body: event or `{ "events": [ ... ] }` (Bearer token)
+- `POST /api/consent` with `{ "enabled": true | false }` (Bearer token)
+
+### Events
+
+- `POST /api/events` with one event or `{ "events": [...] }` (Bearer token)
 - `POST /api/events/sample-seed` (Bearer token)
-- `POST /api/import/whatsapp` body: `{ "text": "..." }` (Bearer token)
-- `POST /api/import/telegram` body: `{ "json": "..." }` or JSON object (Bearer token)
-- `POST /api/import/browser-history` body: `{ "text": "..." }` (Bearer token)
-- `POST /api/import/upload?connector=whatsapp|telegram|browser-history` form-data file field `file`
 - `GET /api/summary?days=7` (Bearer token)
 - `GET /api/events/export` (Bearer token)
 - `DELETE /api/events` (Bearer token)
 
-## Event payload shape
+### Imports
+
+- `POST /api/import/whatsapp` with `{ "text": "..." }`
+- `POST /api/import/telegram` with `{ "json": "..." }` or JSON object
+- `POST /api/import/browser-history` with `{ "text": "..." }`
+- `POST /api/import/upload?connector=whatsapp|telegram|browser-history` as multipart form-data (file field: `file`)
+
+## Event payload example
 
 ```json
 {
@@ -104,4 +129,22 @@ npm test
 }
 ```
 
-`identifier` is never stored directly; only a hashed value is persisted.
+Notes:
+
+- `source` is normalized to `chat` or `browser`
+- `durationMinutes` is rounded to a non-negative integer
+- `identifier` is never stored directly; only its salted hash is persisted
+
+## Testing
+
+Run the full test suite:
+
+```bash
+npm test
+```
+
+## Privacy model
+
+- Local-first by design: data stays on-device in SQLite
+- No remote analytics or cloud sync in this MVP
+- User consent can disable event collection at runtime

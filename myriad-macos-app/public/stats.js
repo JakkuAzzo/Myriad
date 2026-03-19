@@ -4,11 +4,16 @@ let sentimentChart;
 let chatChart;
 
 const cardsEl = document.getElementById('cards');
+const aiSummaryTextEl = document.getElementById('aiSummaryText');
+const aiSummaryHighlightsEl = document.getElementById('aiSummaryHighlights');
 const topicsEl = document.getElementById('topics');
 const deviceBreakdownEl = document.getElementById('deviceBreakdown');
+const platformBreakdownEl = document.getElementById('platformBreakdown');
 const consentToggle = document.getElementById('consentToggle');
 const daysSelect = document.getElementById('daysSelect');
 const deviceSelect = document.getElementById('deviceSelect');
+const scopeSelect = document.getElementById('scopeSelect');
+const adminKeyInput = document.getElementById('adminKeyInput');
 const reassignDeviceSelect = document.getElementById('reassignDeviceSelect');
 const reassignUnknownBtn = document.getElementById('reassignUnknownBtn');
 const reassignStatus = document.getElementById('reassignStatus');
@@ -17,8 +22,21 @@ function getToken() {
   return localStorage.getItem('myriadToken') || '';
 }
 
+function clientPlatformHeader() {
+  return window.myriadDesktop ? 'electron' : 'web';
+}
+
+function getAdminKey() {
+  return adminKeyInput.value.trim();
+}
+
+function getScope() {
+  return scopeSelect.value === 'global' ? 'global' : 'personal';
+}
+
 async function call(path, options = {}) {
   const headers = {
+    'x-myriad-client-platform': clientPlatformHeader(),
     ...(options.headers || {}),
   };
 
@@ -136,6 +154,57 @@ function renderDeviceBreakdown(rows) {
   }
 }
 
+function renderPlatformBreakdown(rows) {
+  platformBreakdownEl.innerHTML = '';
+  if (!rows.length) {
+    const li = document.createElement('li');
+    li.textContent = 'No platform data yet.';
+    platformBreakdownEl.appendChild(li);
+    return;
+  }
+
+  for (const row of rows) {
+    const li = document.createElement('li');
+    li.textContent = `${row.platform}: ${row.events} events, ${row.minutes} minutes`;
+    platformBreakdownEl.appendChild(li);
+  }
+}
+
+function summaryPath(days, device) {
+  const base = getScope() === 'global' ? '/api/summary/global' : '/api/summary';
+  return `${base}?days=${days}&device=${encodeURIComponent(device)}`;
+}
+
+function enhancedSummaryPath(days, device) {
+  const scope = getScope();
+  return `/api/summary/enhanced?scope=${scope}&days=${days}&device=${encodeURIComponent(device)}`;
+}
+
+function renderEnhancedSummary(payload) {
+  const aiSummary = payload && payload.aiSummary ? payload.aiSummary : null;
+  aiSummaryHighlightsEl.innerHTML = '';
+
+  if (!aiSummary) {
+    aiSummaryTextEl.textContent = 'Enhanced insight not available.';
+    return;
+  }
+
+  aiSummaryTextEl.textContent = aiSummary.narrative || 'No narrative available.';
+  const highlights = Array.isArray(aiSummary.highlights) ? aiSummary.highlights : [];
+  if (!highlights.length) {
+    const li = document.createElement('li');
+    li.textContent = 'No highlights available.';
+    aiSummaryHighlightsEl.appendChild(li);
+    return;
+  }
+
+  for (const item of highlights) {
+    const li = document.createElement('li');
+    li.textContent = item;
+    aiSummaryHighlightsEl.appendChild(li);
+  }
+}
+
 function hydrateDeviceSelect(rows, selectedValue) {
   const current = selectedValue || deviceSelect.value || 'all';
   const values = ['all', ...rows.map((x) => x.device)];
@@ -156,7 +225,16 @@ function hydrateDeviceSelect(rows, selectedValue) {
 async function refreshDashboard() {
   const days = Number(daysSelect.value);
   const device = deviceSelect.value || 'all';
-  const response = await call(`/api/summary?days=${days}&device=${encodeURIComponent(device)}`);
+  const headers = {};
+  if (getScope() === 'global') {
+    const adminKey = getAdminKey();
+    if (!adminKey) {
+      throw new Error('Enter admin key to use global summary mode.');
+    }
+    headers['x-myriad-admin-key'] = adminKey;
+  }
+
+  const response = await call(summaryPath(days, device), { headers });
   const summary = await response.json();
 
   renderCards(summary.totals);
@@ -204,6 +282,11 @@ async function refreshDashboard() {
 
   renderTopics(summary.topTopics || []);
   renderDeviceBreakdown(summary.deviceBreakdown || []);
+  renderPlatformBreakdown(summary.platformBreakdown || []);
+
+  const enhancedResponse = await call(enhancedSummaryPath(days, device), { headers });
+  const enhanced = await enhancedResponse.json();
+  renderEnhancedSummary(enhanced);
 }
 
 async function syncConsent() {
@@ -222,6 +305,18 @@ daysSelect.addEventListener('change', () => {
 
 deviceSelect.addEventListener('change', () => {
   refreshDashboard().catch((err) => alert(err.message));
+});
+
+scopeSelect.addEventListener('change', () => {
+  const isGlobal = getScope() === 'global';
+  adminKeyInput.style.display = isGlobal ? 'inline-flex' : 'none';
+  refreshDashboard().catch((err) => alert(err.message));
+});
+
+adminKeyInput.addEventListener('change', () => {
+  if (getScope() === 'global') {
+    refreshDashboard().catch((err) => alert(err.message));
+  }
 });
 
 consentToggle.addEventListener('change', async () => {

@@ -21,6 +21,11 @@
           <input type="checkbox" id="consentToggle" />
           <span>Enable data collection</span>
         </label>
+        <select id="scopeSelect">
+          <option value="personal" selected>Personal summary</option>
+          <option value="global">Unified global summary</option>
+        </select>
+        <input id="adminKeyInput" type="password" placeholder="Admin key for global view" style="display:none" />
         <select id="daysSelect">
           <option value="7">Last 7 days</option>
           <option value="14">Last 14 days</option>
@@ -36,6 +41,12 @@
       </section>
 
       <section class="cards" id="cards"></section>
+
+      <section class="panel">
+        <h2>AI Summary</h2>
+        <p id="aiSummaryText" class="muted">Loading enhanced insight...</p>
+        <ul id="aiSummaryHighlights"></ul>
+      </section>
 
       <section class="grid">
         <article class="panel chart-panel">
@@ -59,6 +70,11 @@
       <section class="panel">
         <h2>Device Breakdown</h2>
         <ul id="deviceBreakdown"></ul>
+      </section>
+
+      <section class="panel">
+        <h2>Platform Breakdown</h2>
+        <ul id="platformBreakdown"></ul>
       </section>
 
       <section class="panel">

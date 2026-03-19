@@ -1,7 +1,12 @@
 const statusEl = document.getElementById('status');
 
+function clientPlatformHeader() {
+  return window.myriadDesktop ? 'electron' : 'web';
+}
+
 async function call(path, options = {}) {
   const headers = {
+    'x-myriad-client-platform': clientPlatformHeader(),
     ...(options.headers || {}),
   };
 

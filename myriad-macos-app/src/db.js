@@ -98,7 +98,147 @@ if (!hasColumn('events', 'metadata')) {
   db.exec('ALTER TABLE events ADD COLUMN metadata TEXT');
 }
 
+if (!hasColumn('events', 'client_platform')) {
+  db.exec("ALTER TABLE events ADD COLUMN client_platform TEXT NOT NULL DEFAULT 'unknown'");
+}
+
+if (!hasColumn('events', 'app_version')) {
+  db.exec('ALTER TABLE events ADD COLUMN app_version TEXT');
+}
+
+if (!hasColumn('events', 'os_version')) {
+  db.exec('ALTER TABLE events ADD COLUMN os_version TEXT');
+}
+
+if (!hasColumn('events', 'external_id')) {
+  db.exec('ALTER TABLE events ADD COLUMN external_id TEXT');
+}
+
+db.exec('CREATE INDEX IF NOT EXISTS idx_events_client_platform ON events (client_platform)');
+db.exec('CREATE INDEX IF NOT EXISTS idx_events_external_id ON events (external_id)');
+db.exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_events_user_external_id ON events(user_id, external_id) WHERE external_id IS NOT NULL');
+
 db.exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_settings_user_key ON settings(user_id, key)');
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS summary_cache (
+    cache_key TEXT PRIMARY KEY,
+    scope TEXT NOT NULL,
+    user_id INTEGER,
+    days INTEGER NOT NULL,
+    device TEXT NOT NULL,
+    payload_json TEXT NOT NULL,
+    provider TEXT,
+    model TEXT,
+    generated_at TEXT NOT NULL,
+    expires_at TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_summary_cache_expires_at ON summary_cache (expires_at);
+  CREATE INDEX IF NOT EXISTS idx_summary_cache_scope_user ON summary_cache (scope, user_id);
+`);
+
+function buildSummaryCacheKey({ scope, userId, days, device }) {
+  const safeScope = scope === 'global' ? 'global' : 'personal';
+  const safeUser = safeScope === 'global' ? 'all' : String(Number(userId) || 0);
+  const safeDays = Number.isFinite(days) ? Math.max(1, Math.min(days, 90)) : 7;
+  const safeDevice = typeof device === 'string' && device.trim() ? device.trim() : 'all';
+  return `${safeScope}:${safeUser}:${safeDays}:${safeDevice}`;
+}
+
+function getSummaryCache(cacheKey) {
+  const row = db
+    .prepare(
+      `
+      SELECT cache_key, payload_json, generated_at, expires_at
+      FROM summary_cache
+      WHERE cache_key = ?
+      AND DATETIME(expires_at) > DATETIME('now')
+    `
+    )
+    .get(cacheKey);
+
+  if (!row) {
+    return null;
+  }
+
+  try {
+    return {
+      cacheKey: row.cache_key,
+      payload: JSON.parse(row.payload_json),
+      generatedAt: row.generated_at,
+      expiresAt: row.expires_at,
+    };
+  } catch (_) {
+    return null;
+  }
+}
+
+function purgeExpiredSummaryCache() {
+  db.prepare(`DELETE FROM summary_cache WHERE DATETIME(expires_at) <= DATETIME('now')`).run();
+}
+
+function upsertSummaryCache({
+  cacheKey,
+  scope,
+  userId,
+  days,
+  device,
+  payload,
+  provider,
+  model,
+  generatedAt,
+  expiresAt,
+}) {
+  db.prepare(
+    `
+    INSERT INTO summary_cache (
+      cache_key,
+      scope,
+      user_id,
+      days,
+      device,
+      payload_json,
+      provider,
+      model,
+      generated_at,
+      expires_at,
+      updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+    ON CONFLICT(cache_key) DO UPDATE SET
+      payload_json=excluded.payload_json,
+      provider=excluded.provider,
+      model=excluded.model,
+      generated_at=excluded.generated_at,
+      expires_at=excluded.expires_at,
+      updated_at=CURRENT_TIMESTAMP
+  `
+  ).run(
+    cacheKey,
+    scope,
+    userId || null,
+    Number.isFinite(days) ? Math.max(1, Math.min(days, 90)) : 7,
+    typeof device === 'string' && device.trim() ? device.trim() : 'all',
+    JSON.stringify(payload),
+    provider || null,
+    model || null,
+    generatedAt,
+    expiresAt
+  );
+}
+
+function invalidateSummaryCacheForUser(userId) {
+  db.prepare(
+    `
+    DELETE FROM summary_cache
+    WHERE scope = 'global'
+    OR user_id = ?
+  `
+  ).run(userId);
+}
 
 function createUser(username, passwordHash) {
   const result = db
@@ -172,7 +312,7 @@ function setSetting(userId, key, value) {
 
 function insertEvent(userId, event) {
   const stmt = db.prepare(`
-    INSERT INTO events (
+    INSERT OR IGNORE INTO events (
       user_id,
       device,
       occurred_at,
@@ -182,11 +322,15 @@ function insertEvent(userId, event) {
       sentiment,
       topic,
       identity_hash,
-      metadata
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      metadata,
+      client_platform,
+      app_version,
+      os_version,
+      external_id
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
-  stmt.run(
+  const result = stmt.run(
     userId,
     event.device || 'unknown',
     event.occurredAt,
@@ -196,21 +340,37 @@ function insertEvent(userId, event) {
     event.sentiment,
     event.topic,
     event.identityHash,
-    event.metadata || null
+    event.metadata || null,
+    event.clientPlatform || 'unknown',
+    event.appVersion || null,
+    event.osVersion || null,
+    event.externalId || null
   );
+
+  return result.changes || 0;
 }
 
 function insertManyEvents(userId, events) {
   const tx = db.transaction((rows) => {
+    let ingested = 0;
     for (const row of rows) {
-      insertEvent(userId, row);
+      ingested += insertEvent(userId, row);
     }
+    return {
+      ingested,
+      skipped: Math.max(0, rows.length - ingested),
+    };
   });
-  tx(events);
+  const result = tx(events);
+  if ((result.ingested || 0) > 0) {
+    invalidateSummaryCacheForUser(userId);
+  }
+  return result;
 }
 
 function deleteAllEvents(userId) {
   db.prepare('DELETE FROM events WHERE user_id = ?').run(userId);
+  invalidateSummaryCacheForUser(userId);
 }
 
 function reassignUnknownEventsToDevice(userId, targetDevice) {
@@ -230,7 +390,47 @@ function reassignUnknownEventsToDevice(userId, targetDevice) {
     )
     .run(device.slice(0, 40), userId);
 
+  if ((result.changes || 0) > 0) {
+    invalidateSummaryCacheForUser(userId);
+  }
+
   return result.changes || 0;
+}
+
+function getRecentEventSamples(userIds, days, device, limit = 10) {
+  const safeDays = Number.isFinite(days) ? Math.max(1, Math.min(days, 90)) : 7;
+  const safeLimit = Number.isFinite(limit) ? Math.max(1, Math.min(limit, 50)) : 10;
+  const safeDevice = typeof device === 'string' && device.trim() && device !== 'all' ? device.trim() : null;
+  const validUserIds = Array.isArray(userIds)
+    ? userIds.map((id) => Number(id)).filter((id) => Number.isInteger(id) && id > 0)
+    : [];
+  const hasUserFilter = validUserIds.length > 0;
+  const userClause = hasUserFilter
+    ? `AND user_id IN (${validUserIds.map(() => '?').join(', ')})`
+    : '';
+  const deviceClause = safeDevice ? 'AND device = ?' : '';
+  const params = [safeDays];
+  if (hasUserFilter) {
+    params.push(...validUserIds);
+  }
+  if (safeDevice) {
+    params.push(safeDevice);
+  }
+  params.push(safeLimit);
+
+  return db
+    .prepare(
+      `
+      SELECT occurred_at AS occurredAt, source, category, topic, device, client_platform AS clientPlatform, duration_minutes AS durationMinutes
+      FROM events
+      WHERE DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${userClause}
+      ${deviceClause}
+      ORDER BY DATETIME(occurred_at) DESC
+      LIMIT ?
+    `
+    )
+    .all(...params);
 }
 
 function exportEvents(userId) {
@@ -239,9 +439,17 @@ function exportEvents(userId) {
     .all(userId);
 }
 
-function getSummary(userId, days, device) {
+function getSummaryForUsers(userIds, days, device) {
   const safeDays = Number.isFinite(days) ? Math.max(1, Math.min(days, 90)) : 7;
   const safeDevice = typeof device === 'string' && device.trim() && device !== 'all' ? device.trim() : null;
+  const validUserIds = Array.isArray(userIds)
+    ? userIds.map((id) => Number(id)).filter((id) => Number.isInteger(id) && id > 0)
+    : [];
+  const hasUserFilter = validUserIds.length > 0;
+  const userClause = hasUserFilter
+    ? `AND user_id IN (${validUserIds.map(() => '?').join(', ')})`
+    : '';
+  const baseParams = hasUserFilter ? [safeDays, ...validUserIds] : [safeDays];
   const deviceClause = safeDevice ? 'AND device = ?' : '';
   const deviceParams = safeDevice ? [safeDevice] : [];
 
@@ -253,12 +461,12 @@ function getSummary(userId, days, device) {
         COALESCE(SUM(duration_minutes), 0) AS totalMinutes,
         COUNT(DISTINCT DATE(occurred_at)) AS activeDays
       FROM events
-      WHERE user_id = ?
-      AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      WHERE DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${userClause}
       ${deviceClause}
     `
     )
-    .get(userId, safeDays, ...deviceParams);
+    .get(...baseParams, ...deviceParams);
 
   const activeHours = db
     .prepare(
@@ -267,14 +475,14 @@ function getSummary(userId, days, device) {
         STRFTIME('%H', occurred_at) AS hour,
         COUNT(*) AS count
       FROM events
-      WHERE user_id = ?
-      AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      WHERE DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${userClause}
       ${deviceClause}
       GROUP BY hour
       ORDER BY hour
     `
     )
-    .all(userId, safeDays, ...deviceParams);
+    .all(...baseParams, ...deviceParams);
 
   const categoryUsage = db
     .prepare(
@@ -283,14 +491,14 @@ function getSummary(userId, days, device) {
         category,
         COALESCE(SUM(duration_minutes), 0) AS minutes
       FROM events
-      WHERE user_id = ?
-      AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      WHERE DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${userClause}
       ${deviceClause}
       GROUP BY category
       ORDER BY minutes DESC
     `
     )
-    .all(userId, safeDays, ...deviceParams);
+    .all(...baseParams, ...deviceParams);
 
   const sentimentTrend = db
     .prepare(
@@ -299,15 +507,15 @@ function getSummary(userId, days, device) {
         DATE(occurred_at) AS date,
         ROUND(AVG(sentiment), 2) AS avgSentiment
       FROM events
-      WHERE user_id = ?
-      AND sentiment IS NOT NULL
+      WHERE sentiment IS NOT NULL
       AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${userClause}
       ${deviceClause}
       GROUP BY date
       ORDER BY date
     `
     )
-    .all(userId, safeDays, ...deviceParams);
+    .all(...baseParams, ...deviceParams);
 
   const conversationFrequency = db
     .prepare(
@@ -316,15 +524,15 @@ function getSummary(userId, days, device) {
         DATE(occurred_at) AS date,
         COUNT(*) AS messages
       FROM events
-      WHERE user_id = ?
-      AND source = 'chat'
+      WHERE source = 'chat'
       AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${userClause}
       ${deviceClause}
       GROUP BY date
       ORDER BY date
     `
     )
-    .all(userId, safeDays, ...deviceParams);
+    .all(...baseParams, ...deviceParams);
 
   const topTopics = db
     .prepare(
@@ -333,17 +541,17 @@ function getSummary(userId, days, device) {
         topic,
         COUNT(*) AS count
       FROM events
-      WHERE user_id = ?
-      AND topic IS NOT NULL
+      WHERE topic IS NOT NULL
       AND topic != ''
       AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${userClause}
       ${deviceClause}
       GROUP BY topic
       ORDER BY count DESC
       LIMIT 5
     `
     )
-    .all(userId, safeDays, ...deviceParams);
+    .all(...baseParams, ...deviceParams);
 
   const deviceBreakdown = db
     .prepare(
@@ -353,13 +561,30 @@ function getSummary(userId, days, device) {
         COUNT(*) AS events,
         COALESCE(SUM(duration_minutes), 0) AS minutes
       FROM events
-      WHERE user_id = ?
-      AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      WHERE DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${userClause}
       GROUP BY device
       ORDER BY minutes DESC
     `
     )
-    .all(userId, safeDays);
+    .all(...baseParams);
+
+  const platformBreakdown = db
+    .prepare(
+      `
+      SELECT
+        client_platform AS platform,
+        COUNT(*) AS events,
+        COALESCE(SUM(duration_minutes), 0) AS minutes
+      FROM events
+      WHERE DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      ${userClause}
+      ${deviceClause}
+      GROUP BY client_platform
+      ORDER BY minutes DESC
+    `
+    )
+    .all(...baseParams, ...deviceParams);
 
   return {
     totals,
@@ -370,7 +595,16 @@ function getSummary(userId, days, device) {
     conversationFrequency,
     topTopics,
     deviceBreakdown,
+    platformBreakdown,
   };
+}
+
+function getSummary(userId, days, device) {
+  return getSummaryForUsers([userId], days, device);
+}
+
+function getGlobalSummary(days, device) {
+  return getSummaryForUsers([], days, device);
 }
 
 module.exports = {
@@ -390,4 +624,11 @@ module.exports = {
   reassignUnknownEventsToDevice,
   exportEvents,
   getSummary,
+  getGlobalSummary,
+  buildSummaryCacheKey,
+  getSummaryCache,
+  purgeExpiredSummaryCache,
+  upsertSummaryCache,
+  invalidateSummaryCacheForUser,
+  getRecentEventSamples,
 };

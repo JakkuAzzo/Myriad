@@ -19,6 +19,12 @@ const {
   reassignUnknownEventsToDevice,
   exportEvents,
   getSummary,
+  getGlobalSummary,
+  buildSummaryCacheKey,
+  getSummaryCache,
+  purgeExpiredSummaryCache,
+  upsertSummaryCache,
+  getRecentEventSamples,
 } = require('./db');
 const { anonymizeIdentifier } = require('./anonymize');
 const {
@@ -26,6 +32,7 @@ const {
   parseTelegramExport,
   parseBrowserHistoryImport,
 } = require('./connectors');
+const { generateEnhancedSummary } = require('./llm');
 
 const PORT = process.env.PORT || 3000;
 const upload = multer({ storage: multer.memoryStorage() });
@@ -48,14 +55,63 @@ function isConsentEnabled(userId) {
   return setting === null ? true : setting === 'true';
 }
 
+function parseOccurredAt(rawOccurredAt) {
+  if (!rawOccurredAt) {
+    return new Date().toISOString();
+  }
+
+  const date = new Date(rawOccurredAt);
+  if (Number.isNaN(date.getTime())) {
+    return new Date().toISOString();
+  }
+
+  return date.toISOString();
+}
+
+function normalizeClientPlatform(value) {
+  const raw = typeof value === 'string' ? value.trim().toLowerCase() : '';
+  if (!raw) {
+    return 'unknown';
+  }
+  if (raw === 'ios' || raw === 'iphone' || raw === 'ipad') {
+    return 'ios';
+  }
+  if (raw === 'electron' || raw === 'desktop' || raw === 'macos') {
+    return 'electron';
+  }
+  return raw.slice(0, 24);
+}
+
+function inferClientPlatformFromRequest(req) {
+  const explicit = req.headers['x-myriad-client-platform'];
+  if (typeof explicit === 'string' && explicit.trim()) {
+    return normalizeClientPlatform(explicit);
+  }
+
+  const userAgent = String(req.headers['user-agent'] || '').toLowerCase();
+  if (userAgent.includes('iphone') || userAgent.includes('ipad') || userAgent.includes('ios')) {
+    return 'ios';
+  }
+  if (userAgent.includes('electron')) {
+    return 'electron';
+  }
+
+  return 'unknown';
+}
+
 function sanitizeEvent(raw) {
-  const nowIso = new Date().toISOString();
-  const occurredAt = raw.occurredAt ? new Date(raw.occurredAt).toISOString() : nowIso;
+  const occurredAt = parseOccurredAt(raw.occurredAt);
+  const source = raw.source === 'chat' ? 'chat' : 'browser';
+  const appVersion = typeof raw.appVersion === 'string' ? raw.appVersion.trim().slice(0, 40) : null;
+  const osVersion = typeof raw.osVersion === 'string' ? raw.osVersion.trim().slice(0, 40) : null;
+  const externalId = typeof raw.externalId === 'string' && raw.externalId.trim()
+    ? raw.externalId.trim().slice(0, 96)
+    : null;
 
   return {
     device: typeof raw.device === 'string' && raw.device.trim() ? raw.device.trim().slice(0, 40) : 'unknown',
     occurredAt,
-    source: raw.source === 'chat' ? 'chat' : 'browser',
+    source,
     category: (raw.category || 'uncategorized').slice(0, 40),
     durationMinutes: Number.isFinite(raw.durationMinutes)
       ? Math.max(0, Math.round(raw.durationMinutes))
@@ -67,6 +123,10 @@ function sanitizeEvent(raw) {
     topic: typeof raw.topic === 'string' ? raw.topic.slice(0, 80) : null,
     identityHash: anonymizeIdentifier(raw.identifier || null),
     metadata: typeof raw.metadata === 'string' ? raw.metadata.slice(0, 1200) : null,
+    clientPlatform: normalizeClientPlatform(raw.clientPlatform),
+    appVersion,
+    osVersion,
+    externalId,
   };
 }
 
@@ -88,6 +148,41 @@ function createApp() {
 
     req.user = getOrCreateLocalUser();
     return next();
+  }
+
+  function requireAdmin(req, res, next) {
+    if (!isAdminRequest(req)) {
+      return res.status(403).json({ error: 'Admin access required.' });
+    }
+
+    return next();
+  }
+
+  function isAdminRequest(req) {
+    const configuredKey = process.env.MYRIAD_ADMIN_KEY;
+    const providedKey = typeof req.headers['x-myriad-admin-key'] === 'string'
+      ? req.headers['x-myriad-admin-key']
+      : '';
+    const usingConfiguredKey = Boolean(configuredKey);
+    const hasValidKey = usingConfiguredKey && providedKey === configuredKey;
+    const localFallback = !usingConfiguredKey && req.user && req.user.username === 'local';
+    return hasValidKey || localFallback;
+  }
+
+  function parseIncomingRows(payload) {
+    const rows = Array.isArray(payload?.events) ? payload.events : [payload];
+    return rows.filter((row) => row && typeof row === 'object');
+  }
+
+  function ingestRows(userId, rows, defaults = {}) {
+    if (!rows.length) {
+      return { ingested: 0, skipped: 0 };
+    }
+
+    return insertManyEvents(
+      userId,
+      rows.map((row) => sanitizeEvent({ ...defaults, ...row }))
+    );
   }
 
   app.get('/api/health', (req, res) => {
@@ -172,19 +267,32 @@ function createApp() {
       return res.status(403).json({ error: 'Collection disabled by user consent setting.' });
     }
 
-    const payload = req.body;
-    const rows = Array.isArray(payload.events) ? payload.events : [payload];
+    const rows = parseIncomingRows(req.body);
+    const inferredPlatform = inferClientPlatformFromRequest(req);
 
     if (!rows.length) {
       return res.status(400).json({ error: 'No events provided.' });
     }
 
-    insertManyEvents(
-      req.user.id,
-      rows.map((row) => sanitizeEvent(row))
-    );
+    const result = ingestRows(req.user.id, rows, { clientPlatform: inferredPlatform });
 
-    return res.status(201).json({ ingested: rows.length });
+    return res.status(201).json(result);
+  });
+
+  app.post('/api/events/batch', resolveUser, (req, res) => {
+    if (!isConsentEnabled(req.user.id)) {
+      return res.status(403).json({ error: 'Collection disabled by user consent setting.' });
+    }
+
+    const rows = parseIncomingRows(req.body);
+    const inferredPlatform = inferClientPlatformFromRequest(req);
+    if (!rows.length) {
+      return res.status(400).json({ error: 'No events provided.' });
+    }
+
+    const result = ingestRows(req.user.id, rows, { clientPlatform: inferredPlatform });
+
+    return res.status(201).json(result);
   });
 
   app.post('/api/events/sample-seed', resolveUser, (req, res) => {
@@ -269,6 +377,88 @@ function createApp() {
     const days = Number(req.query.days || 7);
     const device = typeof req.query.device === 'string' ? req.query.device : null;
     res.json(getSummary(req.user.id, days, device));
+  });
+
+  app.get('/api/summary/global', resolveUser, requireAdmin, (req, res) => {
+    const days = Number(req.query.days || 7);
+    const device = typeof req.query.device === 'string' ? req.query.device : null;
+    res.json(getGlobalSummary(days, device));
+  });
+
+  app.get('/api/summary/enhanced', resolveUser, async (req, res) => {
+    const days = Number(req.query.days || 7);
+    const device = typeof req.query.device === 'string' ? req.query.device : null;
+    const scope = req.query.scope === 'global' ? 'global' : 'personal';
+    const safeDays = Number.isFinite(days) ? Math.max(1, Math.min(days, 90)) : 7;
+    const safeDevice = typeof device === 'string' && device.trim() ? device.trim() : 'all';
+    const userId = scope === 'global' ? null : req.user.id;
+
+    if (scope === 'global' && !isAdminRequest(req)) {
+      return res.status(403).json({ error: 'Admin access required.' });
+    }
+
+    const cacheKey = buildSummaryCacheKey({
+      scope,
+      userId,
+      days: safeDays,
+      device: safeDevice,
+    });
+
+    purgeExpiredSummaryCache();
+    const cached = getSummaryCache(cacheKey);
+    if (cached) {
+      return res.json({
+        ...cached.payload,
+        cache: {
+          hit: true,
+          key: cached.cacheKey,
+          expiresAt: cached.expiresAt,
+        },
+      });
+    }
+
+    const summary = scope === 'global'
+      ? getGlobalSummary(days, device)
+      : getSummary(req.user.id, days, device);
+
+    const userIds = scope === 'global' ? [] : [req.user.id];
+    const eventSamples = getRecentEventSamples(userIds, safeDays, summary.selectedDevice, 10);
+
+    const enhanced = await generateEnhancedSummary(summary, {
+      days: safeDays,
+      device: summary.selectedDevice,
+      scope,
+      eventSamples,
+    });
+
+    const ttlHours = Number(process.env.MYRIAD_SUMMARY_CACHE_TTL_HOURS || 6);
+    const safeTtl = Number.isFinite(ttlHours) ? Math.max(1, Math.min(ttlHours, 168)) : 6;
+    const generatedAt = enhanced.aiSummary.generatedAt;
+    const expiresAt = new Date(Date.now() + safeTtl * 60 * 60 * 1000).toISOString();
+
+    upsertSummaryCache({
+      cacheKey,
+      scope,
+      userId,
+      days: safeDays,
+      device: summary.selectedDevice,
+      payload: enhanced,
+      provider: enhanced.aiSummary.provider,
+      model: enhanced.aiSummary.model,
+      generatedAt,
+      expiresAt,
+    });
+
+    return res.json(
+      {
+        ...enhanced,
+        cache: {
+          hit: false,
+          key: cacheKey,
+          expiresAt,
+        },
+      }
+    );
   });
 
   app.get('/api/events/export', resolveUser, (req, res) => {

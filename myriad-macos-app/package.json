@@ -8,6 +8,8 @@
     "start:web": "node src/server.js",
     "dev": "node src/server.js",
     "test": "npm run rebuild:node && node --test",
+    "demo:video": "node scripts/record-demo-video.mjs",
+    "demo:ios-video": "node scripts/record-ios-simulator-video.mjs",
     "rebuild:node": "npm rebuild better-sqlite3",
     "rebuild:electron": "electron-rebuild -f -w better-sqlite3"
   },
@@ -19,10 +21,12 @@
     "better-sqlite3": "^12.6.2",
     "express": "^5.2.1",
     "multer": "^2.1.1",
-    "supertest": "^7.2.2"
+    "supertest": "^7.2.2",
+    "@xenova/transformers": "^2.17.2"
   },
   "devDependencies": {
     "@electron/rebuild": "^3.7.2",
-    "electron": "^40.8.0"
+    "electron": "^40.8.0",
+    "playwright": "^1.58.2"
   }
 }

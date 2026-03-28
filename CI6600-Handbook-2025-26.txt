@@ -1,0 +1,903 @@
+ Faculty of Science, Engineering and Computing CI6600 Individual Project (Cyber Security)
+Project Information Handbook
+2025-2026 Academic Year
+Table of Contents
+.	1
+	•	Module Team Information	2
+	•	Introduction	2
+	•	Learning Outcomes	3
+	•	Project Assessment	4
+	•	Module Learning Outcomes Assessment Mapping	5
+	•	Learning and Teaching on this Module	6
+	•	Project Management	7
+	•	Guidance on Completing the Project Assessment	8
+	•	The project proposal (10%)	8
+	•	Progress meetings/blog (10%)	10
+	•	Early demo (5%)	10
+	•	Guidance on completing the project report (60%)	10
+	•	Viva (15%)	11
+	•	Plagiarism	12
+	•	Extensions	12
+	•	Marking Scheme	13
+Appendix 1 – Progress Meetings/Blog	16
+Appendix 2- Project Cover Page & Declaration Page	19
+Appendix 3 - Indicative Project Report Structure & Organisation	21
+Appendix 4 - List of Projects	26
+
+	•	 Module Team Information
+Module Leader: Dr Deepak GC (for Cyber Security Course)
+
+Tutors and Supervisory Team: Dr Deepak GC, Dr Martin Tunnicliffe, Dr Hu Yuan, Dr Xing Liang, Dr Obinna Omego, Dr Ryan Heartfiled and Dr Razi Arshad. Supervisors will support and guide you through your project’s development.
+
+	•	 Introduction
+The overall aim of the module i to further develop skills in organisation, timekeeping, research literature, developing and critically analysing results as well as reporting work verbally and in a written format. The end result will be an artefact or artefacts which demonstrates creativity and technical competence as well as a technical report.
+
+This module provides you with an opportunity to self-direct, manage and complete your own unique project related to your degree subject. This is your project to develop, manage and conclude. You can start to develop your chosen area by selecting a project, type which will help you with the project proposal assessment.
+
+Project Types and Themes:
+	•	A review-based project where the aims focus on comparisons of functions, bene-fits and limitations of tools, techniques, apps, assets, networks, or systems, that are contextualised in a use case or scenario.
+
+	•	An investigation-based project where the aims focus on a combination of discov-ery, exposure, acquisition, analysis, visualisation and documentation of typically unchartered knowledge and information.
+
+	•	A proof of concept-based project where aims focus on building or designing an artefact that solves or mitigates a problem, within the context of a use case or scenario.
+
+All students were introduced to the final year project guideline at the end of Level 5, where instructions and relevant information were discussed. If you followed this information, completed the online project form, and progressed to level 6, then you should have already chosen your project title.
+
+For those who had resits, or did not submit a project form, then you will need to do so as soon as possible and no later than the end of the second week of Teaching Block 1 in your Level 6 year.
+The final year project form can be accessed from here:
+
+https://forms.office.com/Pages/DesignPageV2.aspx?origin=NeoPortalPage&subpage=design&id=nALvyc8YF  kCG05PPjpT_lCJGJNDFtDtDhWfJ4sD-Eu5UQ0ZDREJOT1NTTlVGSTBMUExUR1JHVUdZRy4u
+
+	•	 Learning Outcomes
+On successful completion of the module, students will be able to:
+
+	•	Carry out a literature review/search to summarise and evaluate background work relevant to the chosen project domain.
+
+	•	Undertake an investigation of the planned topic and critically evaluate the outcomes.
+
+	•	Plan tasks within time and other commitment constraints.
+
+	•	Produce a well-structured written report demonstrating a sound understanding of the theory of the chosen project domain, including relevant references, use of language, diagrams, tables, and graphs where necessary.
+
+	•	Present or answer questions clearly and concisely in a structured interview/viva about their work.
+
+	•	Create an artefact relating to the chosen project domain.
+
+	•	Identify and take account of relevant legal, social, and ethical issues in relation to the chosen project domain.
+
+	•	 Project Assessment
+The assessment of your project will be based on the following deliverables:
+
+	•	Project proposal (10%) - Under the guidance of your supervisor you should develop a Project Proposal to define the project type, scope, aims, objectives, technologies (including their availability and how they will be accessed), project resources, risks, constraints, deliverables, and milestones, etc.
+
+Submission: Electronic submission through Canvas (Assignments Section).
+Feedback: Provided by the project supervisor.
+
+	•	Progress meetings/blog (10%) - You will be required to keep a log of all meetings with your supervisor/supervisory team and to document your activities (e.g., deployments, tests, experiments, surveys, research, written work etc.) in a table and submit it every two weeks. Examples can be found in Appendix 1.
+
+	•	Early demo (5%) – You need to demonstrate your progress to your supervisor who will assess progress and discuss future development. You need to produce a Power Point presentation which should be submitted electronically on Canvas. The date of the presentation will be arranged with the project supervisor at the end of TB1.
+
+Feedback: Provided by the project supervisor.
+
+
+	•	Project report and artefact (60%) – You should submit your report electronically as a PDF and Word document through Canvas and through the TurnitIn website. A compressed folder with the artefact needs to be uploaded to Box, and the link must be shared via the Canvas submission page.
+
+Feedback: Provided by the project supervisor.
+Submission: Electronic submission through Canvas (Assignments Section).
+
+
+	•	A viva (15%) to be arranged between you, your supervisor and a second assessor at the end of the academic year.
+
+You need to present a summary of your project (e.g. Power Point) and demonstrate your artefact. You will be asked questions by the supervisor and the assessor about your project. You must also submit a copy of your presentation (Power Point) via Canvas.
+
+	•	 Module Learning Outcomes Assessment Mapping
+
+Learning outcomes / Assessments
+I
+II
+III
+IV
+V
+Carry out a literature search to summarise and evaluate background work relevant to cyber security, undertake an investigation of the planned topic and
+critically evaluate the outcomes
+
+X
+
+X
+
+
+X
+
+Plan tasks within time and other commitment
+constraints
+X
+X
+X
+
+
+Produce a well-structured written report demonstrating a sound understanding of the theory of the chosen project area including relevant references and use of language, diagrams, tables, and
+graphs where necessary
+
+
+
+
+
+X
+
+Present or answer questions clearly and concisely in a
+structured interview about their work
+
+X
+X
+
+X
+Create an artefact relating to cyber security
+
+
+
+X
+X
+Identify and take account of relevant legal, social, and
+ethical issues
+X
+
+
+X
+
+
+	•	 Learning and Teaching on this Module
+You are leading this project activity.
+You will be supported by your supervisor and others, such as teaching assistants, as is necessary – provided that you have made all the required connections (they will not come to you!).
+
+Please note the following:
+	•	Your project is defined and led by you. You will have support from the module team, but it is up to you to define the project’s aims and objectives, your methodology, your analysis of the results, and the related conclusions and recommendations.
+
+	•	Please attend the weekly lectures/tutorials and engage with supervisory teams. Use your meetings with your supervisor as your first point of contact for questions about your project activity.
+
+	•	Leave plenty of time to write your report, as the report (combined with your artefact) scores 60% of your mark. Evaluate and reflect on your work and demonstrate these in your final report.
+
+	•	You should aim to complete your project artefact early in TB2 (January/February). This will allow you more time to focus on writing the final project report.
+
+	•	It is expected that you will spend at least 8 hours per week working on the project. Re-member that this is a 30-credit module, which is 25% of your final year and hence it is a major contributor to your final degree award and classification.
+
+	•	 Project Management
+For your final year, you need to organise your time effectively, even more so than in previous years. Remember that you are attending lectures and working on assignments for other modules as well as your Project. Therefore, it is important to realise that project work should not be allowed to interfere with examinations and other module assessments. Moreover, you should not allow other academic work to take all your time; you must continue to work on your Project for the minimum recommended amount of time (10 hours every week, all through the year).
+
+Please consider deadlines from other modules on your GANNT chart or work plan, so that the other activities are incorporated in your planning.
+In order to organise and plan your project seamlessly, please use a free online project management tool such as: Trello, Teamwork, MeisterTask, Dynalist etc.
+
+You can discover more about project management via LinkedIn Learning and O’Reilly Media.
+
+	•	 Guidance on Completing the Project Assessment
+	•	The project proposal (10%)
+It describes the planning process as well as the search for literature, resources, and tools. You need to include the following sections as well as a Gantt chart or similar table-based timeline. The Project Proposal should be a maximum of 1500 – 2000 words in length. It comprises:
+
+Name / Date, Project Title, Supervisor name
+
+Introduction Section (approximately 300 words) – Description of your project
+
+	•	Examples of questions and factors that you might address in this section.
+
+	•	What is the context of your project?
+	•	Describe your project idea. Why are you doing this? (Purpose)
+	•	What problem does your project aim to solve and who for?
+	•	Why it is important to solve this problem and what is the impact if it is not solved?
+	•	What is the expected benefit from this project?
+	•	Who are the stakeholders that will benefit from your project and how will they benefit?
+	•	How does it relate to previous work and existing knowledge in your chosen project domain?
+
+Aims and Objective Section (approximately 300 words) – What will be done
+
+	•	Examples of questions that you might address in this section.
+	•	What are you going to accomplish?
+	•	What is the vision for the project in terms of outcomes? (aim)
+	•	What will need to be delivered in order to realise the vision? (objectives)
+
+Technologies and Resources Section (approximately 300 words) -
+	•	Examples of questions that you might address in this section.
+	•	What hardware will be required to deliver this project? (e.g., PC, Laptop, Raspberry Pi, Mobile, Watch, Camera, etc.)
+
+	•	What software will be required to deliver this project? (e.g., operating system, programming language, etc.)
+
+	•	What platforms will be required to deliver this project? (e.g., cloud, online tool etc.)
+
+You can present most of the above information as a table.
+
+Method and Workplan Section (approximately 300 words) - How could it be done and when will it be done.
+
+	•	Examples of questions that you might address in this section.
+	•	How will you manage your project?
+
+	•	What software will you use to manage this project?
+
+	•	What things could go wrong with the project and how will you mitigate them?
+
+	•	Show the major phases of the project milestones and deliverables.
+
+You should include a Gantt chart or similar table-based timeline.
+
+Legal, ethical, societal, GDPR and Security Considerations Section (approximately 300 words)
+
+	•	Examples of questions that you might address in this section.
+	•	Are there any known policies, regulations, or standards that apply to this project (such as quality, security, regulatory compliance, etc)?
+	•	Are there any ethical consequences associated with your project?
+	•	Does your project require approval from the University's ethics com-mittee?
+	•	Does GDPR need to be considered?
+	•	Does your project comply with licensing agreements?
+
+Note that a project that uses human subjects/data may requires ap-proval by the Faculty's Research Ethics Committee. This includes pro-jects that involve people surveys/questionnaires. Please seek advice from your supervisor. Where relevant, proposals should clarify Intel-lectual Property Rights (Industrial or KU Research Hosts may wish to claim copyright, particularly if they pay the student for any work done). Further information is available in FYP Ethics page below. https://canvas.kingston.ac.uk/courses/35979/pages/cyber-security-project-ethics .
+
+References
+	•	You are required to use the Harvard referencing for your proposal. Further information can be found from the following link: https://kingstonuniversity.sharepoint.com/sites/mykingston/library/help_an d_training/Pages/referencing.aspx
+
+AI Policy
+	•	It is crucial that students are aware of the guidelines for artificial intelligence (AI). These guidelines are vital for understanding the ethical and moral considerations surrounding the development and use of AI. Students can find the guidelines easily by following this Link. You must take the time to read through them carefully and understand their implications for the future of technology and society as a whole.
+
+	•	Progress meetings/blog (10%)
+Document supervisor meetings and your progress throughout the two teaching blocks. Progress is documented whenever a significant amount of work is carried out. You are required to submit your progress log every two weeks. Your supervisor will be observing your progress. Examples can be found in Appendix 1.
+
+	•	Early demo (5%)
+Prepare a short presentation to demonstrate your progress to the supervisor who will assess progress and discuss future directions. You need to produce a power-point presentation which should be submitted electronically on Canvas. The date of presentation will be arranged with the project supervisor in TB2.
+
+	•	Guidance on completing the project report (60%)
+
+The project report is the final submission for this module and is the main assessment task of the module. Some general guidelines are given below but ultimately production of your report is your own responsibility. You should of course discuss as much as possible with your supervisor along the way.
+
+The written presentation is important. It is essential to carefully proof-read your report and, if possible, to get someone else to check it. Your supervisor will advise you on your presentation, but you should ensure that he/she is given adequate time to look at your draft copy for comment and correction.
+
+The regulations for the assessment of the project report do not specify a maximum size but the final report should be a maximum of 6000- 8000 words in length. Please try not to exceed 8000 words. This is just a guideline, and it does not include mathematical equations, computer output, source code (in the appendix), tabulated data etc.
+
+The report must be typed on A4 paper with 1 ½ spacing, 2.54 cm margin on the left- and right-hand side. With the exception of the title page, the glossary of terms and the contents page, each page must be numbered. You are responsible for the typing, preparation, and submission of the project report.
+
+You must use the university standard front page as the first page of your report, see Appendix 2. An indicative project report structure is provided at the end of this document, see Appendix 3.
+
+The report is submitted electronically as a Word or PDF document through Canvas and through the TurnItIn website. A compressed folder with your artefact needs to be uploaded onto Canvas as well. A late submission will be downgraded unless a mitigating circumstances claim has been submitted prior to the submission deadline.
+IMPORTANT: A computer “breakdown” or loss of computer output is not normally regarded as a valid excuse.
+
+The project report will be assessed by your supervisor and an appointed second examiner. All the projects will also be seen by the External Examiner. The precise assessment criteria are described in the project marking scheme shown in the next section.
+
+	•	Viva (15%)
+The viva assesses the final achievement and an understanding of the subject matter. During the viva session, you will need to present a summary of your project (No more than 10 minutes). A summary presentation (e.g., PowerPoint) based on the structure of your project report needs to be prepared, which should aim to answer the following questions:
+
+	•	What is the theme of your project?
+	•	Why is it of interest or important?
+	•	Who are your project stakeholders and how will the outcomes of your project impact them?
+	•	What methodology did you choose and why?
+	•	What were the results of your project and what did you learn or discover, that you did not know when you started?
+	•	What are the next steps for your project if it were to continue?
+	•	What would you do differently if you had the opportunity to start your project again?
+
+You must also present a demonstration of your artefact (no more than 10 minutes). A practical demonstration of what you have created, designed, built or results.
+
+Be prepared to answer questions from your examiners, about the material presented in the project report and about your artefact.
+
+The above requirements and procedures are subject to review. Should any changes be implemented you will be notified.
+	•	 Plagiarism
+
+Key skills developed during project work are your self-reliance, originality, and initiative as well as your ability to collect, assimilate and utilise knowledge / information. In doing so you should take care to avoid plagiarism; claiming someone else’s work as your own. Whether it is the work of another student or extracted from a publication, the author should be cited. This will not detract from the authenticity of your project; it may add to its technical credibility. Failure to cite authors and making it clear whether a section is a quotation from another work will be classed as plagiarism and is likely to be treated as Academic Misconduct, which carries severe penalties.
+
+Plagiarism is a serious academic offence and will always be challenged where it is suspected. When submitting work for assessment ensure it is your own or your group’s and not someone else’s ideas, words, and images. You must declare that the task submitted for assessment is your own or group’s independent work and that all sources used in the submission are referenced. To find out more about referencing and plagiarism, go to
+Click  on:  http://www.citethemrightonline.com/
+
+
+	•	 Extensions
+
+The usual rules for mitigating circumstances apply. See the student office and go through the mitigating circumstances procedure via OSIS.
+
+11. Marking Scheme
+
+Major Categories of Assessment:
+
+Proposal and progress blog
+20%
+Artefact and report
+60%
+Viva and interim demos
+20%
+
+	•	Proposal and progress mark
+
+The mark for the development work will be determined as a result of taking into account the following factors:
+
+	•	Your understanding of the problem
+	•	The planning of the project
+	•	The effort you put in
+	•	Your self-reliance
+	•	The originality and initiative shown
+	•	The way you have organised the work
+	•	Your week-by-week performance
+	•	The project logs
+	•	Prototype demonstration
+
+
+Guidelines:
+
+A mark of 70% and above would normally require a high standard of performance for each of the above factors.
+
+A mark between 60% and 70% would normally require a very good performance for each of the above factors with rather less originality and initiative shown.
+
+A mark between 50% and 60%) would normally require a good performance for the majority of the above factors but with little or no originality and self-reliance.
+
+A mark between 40% and 50% would normally require an adequate performance in most respects but without showing originality, self-reliance and initiative.
+
+A mark of less than 40% would arise in the case of very little effort and understanding, inability to achieve the minimum objectives of the project, or fatal flaws in the analysis or methodology and inadequate project logs and viva. A satisfactory performance in some of the work and adequate effort, at least for some of the time may warrant an unclassified performance.
+
+	•	Artefact and report mark
+
+Different type of projects requires different treatment and lend themselves to demonstration of different skills. The following factors will be examined (if relevant) in defining the content mark:
+
+	•	Your understanding of the subject matter
+	•	The clarity of communication to the reader
+	•	Rigour of analysis and design
+	•	Depth and/or breadth of implementation
+	•	Evidence of originality, imagination, critical judgement, ingenuity
+	•	Legal, Ethical and Social and Data Security Considerations
+
+Guidelines:
+
+A mark of 70% and above would normally require an outstanding, comprehensive treatment for each part of the contents described above, with outstanding analysis. The report should show a complete grasp of the problem, the achievement of its aims and it should reach a satisfactory well-argued conclusion.
+
+A mark between 60% and 70% would normally require a very good thorough treatment for each part of the contents with good quality analysis. The report should show a very good understanding of the problem, the achievement of its aims, with rather less originality and initiative than a first-class performance, and it should reach a satisfactory, reasonably well-argued conclusion.
+
+A mark between 50% and 60% would normally require a good satisfactory treatment for each part of the contents with adequate analysis. The report should show a good understanding of the problem, the achievement of the majority of its aims but with little or no originality and it should reach an adequate conclusion.
+
+A mark between 40% and 50% would normally be adequate in its treatment of the parts of the contents with adequate analysis. The report should show that the student has understood the problem to a large extent, has achieved some of its aims and reached an adequate conclusion.
+
+A mark below 40% would arise in the case of very little effort, inability to achieve the minimum objectives of the project or fatal flaws in the analysis or methodology. The project should have displayed an inadequate level of understanding. A partial understanding of the problem and an incomplete solution may warrant consideration for an unclassified performance.
+
+	•	Viva and interim demos mark
+
+This mark will reflect your performance in the following factors:
+
+	•	Oral presentation and viva
+	•	Organisation of the presentation
+	•	Logical structure
+	•	Clarity of expression
+	•	Comprehension of subject matter
+
+Guidelines:
+
+A mark of 70% and above would normally require a high standard of performance for each of the factors mentioned in the brackets above.
+
+A mark between 60% and 70% would normally require a very good performance for each of the factors mentioned.
+
+A mark between 50% and 60% would normally require a satisfactory performance for all the above factors and a good performance for the majority.
+
+A mark between 40% and 50%) would normally be adequate in most respects but unsatisfactory for some of the factors.
+
+A mark below 40% would arise in the case of a very poor presentation, difficult to follow, badly written with many errors and omissions. A poor presentation which is satisfactory in some respects may warrant an unclassified performance.
+
+Appendix 1 – Progress Meetings/Blog
+Example Templates of Project Log
+Example 1:
+
+Student Name and Number:
+
+Weeks:
+Date:
+Deliverables:
+Description:
+Challenges, technical issues and/or project management issues:
+Then you can copy above table for the next week and append below it. This is suggested to submit two weeks logbook at a time. In the next submission, add two weeks log record below previous logs. This way, you create a portfolio of project logbook.
+
+Example 2:
+Student Name and Number:
+
+Week
+Date
+Task
+Deliverable
+Complete
+Week 1
+
+Start Project Pro-posal
+Documentation
+
+Week 2
+
+Submit Draft Pro-posal
+Documentation
+
+Week 3
+
+Work on finishing Proposal using feedback
+Documentation
+
+Week 4
+
+Submit Proposal
+Documentation
+
+Week 5
+
+Analysis (SWOT), use cases
+Methodology
+
+Week 6
+
+Stakeholder Analy-sis
+Methodology
+
+Week --
+
+Analysis outcomes
+Documentation
+
+
+
+Week --
+
+Further research into user reviews and feedback of other apps
+Create list of re-quirements from re-search into reviews (MoSCow)
+Research/ Docu-mentation
+
+Week --
+
+Start on Wireframes
+Methodology
+
+Week --
+
+Install Invision Stu-dio
+Implementation
+
+Week --
+
+Further work on wireframes
+Methodology
+
+Week --
+
+Sequence Diagrams
+Methodology
+
+Week --
+
+Check requirements match wireframes
+Documentation
+
+Week --
+
+Revaluation of where the project is and where the pro-ject is going
+Documentation
+
+Week --
+
+Summary of design challenges
+Documentation
+
+Week --
+
+Start turning wireframes into pro-totype
+Implementation
+
+Week --
+
+Further work on pro-totype
+Implementation
+
+Week --
+
+Further work on pro-totype
+Implementation
+
+Week --
+
+Plan Prototype Presentation
+Implementation
+
+Week --
+
+Plan Prototype Presentation
+Implementation
+
+Week --
+
+Prototype Demo
+Presentation
+
+Week --
+
+Start Organisation of report structure
+Documentation
+
+Week --
+
+List of key reference material
+Documentation
+
+Week --
+
+Start on Technical description
+Documentation
+
+
+
+Week --
+
+Strategies and out-comes – conduct usability testing/test strategy
+Research
+
+Week --
+
+Submit draft of Writ-ten documentation (proof of con-cept/validation)
+Documentation
+
+Week --
+
+Feedback from us-ers
+Methodology
+
+Week --
+
+Comparison of de-sign with other apps
+Research
+
+Week --
+
+Start on background and motivation of the project
+Documentation
+
+Week --
+
+Write up aims and objectives as well as the scope
+Documentation
+
+Week --
+
+Submit draft of writ-ten documentation
+Documentation
+
+Week --
+
+Create the delivera-bles
+Documentation
+
+Week --
+
+Start on writing the literature review
+Documentation
+
+Week --
+
+Submit draft of doc-umentations to su-pervisor
+Documentation
+
+Week --
+
+Write critical review
+Documentation
+
+Week --
+
+Write conclusion
+Documentation
+
+Week --
+
+Read through all of the report and cor-rect any changes
+Documentation
+
+Week --
+
+Submit whole pro-ject draft to supervi-sor
+Documentation
+
+Week --
+
+Work on feedback from supervisor on project report and make necessary changes
+Documentation
+
+Week --
+
+Deadline for Re-port
+Documentation
+
+Week --
+
+Deadline for Viva
+Documentation
+
+
+Appendix 2- Project Cover Page & Declaration Page
+
+FACULTY OF SCIENCE, ENGINEERING AND COMPUTING
+School of Computer Science and Mathematics BSc (Hons) DEGREE
+IN
+Your Course
+Your Name Your KU ID Project Title
+Date of submission Name of Supervisor
+
+
+Declaration
+
+I have read and understood the University regulations on plagiarism, and I understand the meaning of the word plagiarism. I declare that this report is entirely my own work. Any other sources are duly acknowledged and referenced according to the requirements of the School of Computer Science and Mathematics. All verbatim citations are indicated by double quota-tion marks (“…”). Neither in part nor in its entirety have I made use of another student’s work and pretended that it is my own. I have not asked anybody to contribute to this project in the form of code, text, or drawings. I did not allow and will not allow anyone to copy my work with the intention of presenting it as their own work.
+
+
+Date:
+
+
+
+Name:
+
+
+
+Signature:
+
+Appendix 3 - Indicative Project Report Structure & Organisation
+
+Report Structure
+Does your report include the following sections?
+	•	Title
+	•	Table of Contents
+	•	Table of Figures
+	•	Glossary of Terms
+	•	Introduction and Background
+	•	Project Management Strategy
+	•	Literature Review
+	•	Methodology
+	•	Implementation
+	•	Critical Review
+	•	References
+	•	Appendix/Appendices (If applicable)
+
+Report Presentation
+Does your report include the following?
+
+
+2.1 First page: The Individual Project Report Cover Page has been used.
+2.2 Line spacing: 1.5 and consistent throughout.
+2.3 Font: Calibri or Calibri Light and has been used consistently throughout the report.
+2.4 Paragraphs: Have been use appropriately to aid readability.
+2.5 First lines of paragraphs: Not indented
+2.6 Margins: 2.54 cm top, right, bottom and left; throughout.
+2.7 Figures, graphs, images, and tables: Appropriately numbered, labelled and referenced
+where appropriate.
+2.8 Page numbers: On each page
+2.9 Colour: Where it is used, it serves a purpose (e.g., it aesthetically enhances the report,
+or emphasises meaning/importance etc.).
+
+Report Syntax
+
+Have you checked the following syntax in your report?
+3.1 Grammar: Please read, reread, and then read your work again, to ensure that it is
+grammatically sound.
+3.2: Readability: Use of straightforward language and sentences.
+3.3: Clarity of expression: Writing style should be clear and concise; not verbose or over
+"flamboyant".
+3.4: Spelling: Please read, reread, and then read your work again, to ensure that it is spell-
+ings are correct.
+3.5: Punctuation: Please read, reread, and then read your work again, to ensure that it is
+punctuation is correct.
+3.6: Writing perspective: MUST be observational (i.e., a third person perspective). DO
+NOT USE "I", "me", "my", "we", "us", "our" etc..
+3.7: Writing style: Must be formal rather than "casual", colloquial or including the use of vernacular terms.
+
+Report Content
+
+Does your report include the following?
+4.1 Title: Relevant and appropriate.
+4.2 Table of Contents: Relevant and appropriate.
+4.3 Table of Figures: Relevant and appropriate.
+4.4 Glossary of Terms: Relevant and appropriate.
+
+	•	Introduction and Background:
+
+Relevant, logical, demonstrates a competent depth of knowledge.
+
+Be sure to consider the following with regards to creating your Introduction section.
+	•	Describe the domain, environment, or context in which the problem or circumstance that your project aims to address, exists.
+
+	•	What is the scale of the problem or circumstance that your project aims to address?
+
+You might choose to express the scale in terms of the number of people impacted or as a financial consequence, for example.
+
+	•	Who are the key stakeholders that relate to the problem or circumstance that your pro-ject aims to address?
+
+	•	List the aim(s) (i.e., main purpose or ambition) of your project?
+
+	•	List the objectives of your project (i.e., the actions and activities that will enable you to deliver your project aim(s)).
+
+	•	Describe and justify the scope of your project.
+For example, if you were building a digital forensics tool, you might specify that the tool will be designed to scan iOS devices and not Android or other mobile device operating sys-tems. Justification could be based on project time limitations or that Android is the most popular mobile operating system.
+
+	•	Describe any ethical, legal, or social impacts of your project. For example, will your pro-ject require any ethical approval from the university before being undertaken? Are there any legal concerns associated with your project? Will your project have any form of detri-mental or positive impact for those who come into contact with your project?
+
+NOTE: This section should start on a new page.
+
+	•	 Project Management Strategy
+
+Be sure to consider the following with regards to creating your Project Management sec-tion.
+
+Question 1: What tools and techniques did you use to manage your project and why?
+
+Question 2: What alternative tools and technique could you have used?
+
+NOTE: This section should start on a new page.
+
+	•	 Literature Review:
+
+Be sure to consider the following with regards to creating your Literature Review section.
+
+Question 1: What systems, techniques, apps, or tools will form the basis of your literature review and why?
+
+Question 2: What are the benefits and limitations of each of the systems, techniques, apps, or tools that you are reviewing?
+
+Question 3: Using a comparison table that summarises the benefits and limitations identi-fied in Literature Review Question 2; What is the focus and intention of your project and how will it address these outcomes?
+
+Question 4: Based on your answer to Literature Review Question 3; How does your focus and intention address the broader problem and purpose of your research as presented in the introduction to your report?
+
+NOTE: This section should start on a new page.
+
+
+	•	Methodology:
+
+Relevant, logical, demonstrates a competent depth of knowledge Question 1: What are you intending to discover, identify, create, or design?
+Question 2: How has what you are trying to discover, identify, create or design been in-spired or influenced by the outcomes of your literature review?
+
+Question 3: What hardware (including specifications) have you used to deliver what you have specified in Methodology Question 1?
+
+Question 4: What software, apps, tools, or systems (including specifications) have you used to deliver what you have specified in Methodology Question 1?
+
+NOTE: This section should start on a new page.
+
+
+	•	 Implementation of Artefact:
+
+Be sure to consider the following with regards to creating your Implementation section.
+
+i) Describe the steps that a user has to follow in order to recreate your implementation. Note: If you use images, capture high quality screenshots. DO NOT CAPTURE SCREENSHOTS
+
+
+WITH A MOBILE PHONE CAMERA! Be sure to annotate images clearly.
+
+To best support generating content for this part, you might define the intended reader and what assumptions that you have made about them (e.g., technical capability and knowledge). For example, you might assume that the reader is a student studying a com-puter science degree, or that they are a network design consultant. You can even include a single paragraph at the beginning of this section titled “Intended Audience” if you want to.
+	•	Describe the steps that a user has to follow in order to use or generate output from your implementation. Note: If you use images, capture high quality screenshots. DO NOT CAP-TURE SCREENSHOTS WITH A MOBILE PHONE CAMERA! Be sure to annotate images clearly.
+	•	Include examples of output (i.e., results) from your implementation.
+
+	•	Include a concluding paragraph for this section.
+
+NOTE: This section should start on a new page.
+
+4.10 Critical Review
+
+Be sure to consider the following with regards to creating your Critical Review section.
+	•	Apply a critical and realistic review of the project outcomes, aims and objectives.
+	•	Apply a critical and realistic review of how project milestones, deliverables and time management were handled.
+	•	Consider what aspects of the project worked.
+	•	Consider of what aspects of the project could be changed.
+	•	Consider future developments and/or research paths.
+
+NOTE: This section should start on a new page.
+4.11 References: relevant and appropriate
+
+You are required to use the Harvard referencing  format in your report.
+
+NOTE: This section should start on a new page.
+
+4.12 Appendix/Appendices:
+Relevant and appropriate
+
+NOTE: This section should start on a new page.
+
+Appendix 4 - List of Projects
+A list of projects based on CYBOK Knowledge Areas is given below, which may be used as inspiration for Final Year Projects. Further information about CYBOK Knowledge Areas can be accessed from the following link:
+https://www.cybok.org/knowledgebase/
+
+Ethical Hacking or Vulnerability Centred Projects
+
+CYBOK Knowledge Areas: Web & Mobile Security, Malware & Attack Technologies, Adversarial Behaviours
+Activities: Pen-Testing, Vulnerability Assessment or Vulnerability Management
+
+	•	Compare and contrast the functionality of Webgoat, Zed Attack Proxy, Burpsuite
+	•	Implement Steganographic messaging via Blockchain
+	•	Develop a command-and-control App for mobile devices
+	•	Analyse mobile device authentication techniques
+	•	Evaluate and analyse the scope of using Android Apps as steganographic carriers
+	•	Evaluate and analyse the scope of using HTML, CSS and JavaScript as steganographic carriers
+	•	Evaluate, analyse and compare Android Apps from legitimate and illegitimate sources.
+	•	Evaluate and analyse vulnerabilities in client-side browser storage.
+	•	Evaluate and analyse vulnerabilities in client-side mobile application storage.
+
+
+
+Network Security Projects
+
+CYBOK Knowledge Areas: Network Security, Security Operations & Incident Management Activities: Investigate, Design, Create, Deploy, Test, Simulate
+	•	Research, deploy and evaluate SNORT
+	•	Evaluate vulnerabilities in network protocols
+
+	•	Simulate the efficacy of IP Masquerading
+	•	Investigate wireless security vulnerabilities
+	•	Investigate different type of DNS attacks
+	•	Evaluate Intrusion Detection System (IDS) deployment
+	•	Evaluate Intrusion Prevention System (IPS) deployment
+	•	Evaluate vulnerabilities in IoT network assets
+	•	Investigate techniques for protecting against DDoS attacks in cloud environments
+	•	Investigate, deploy and test honeypots
+	•	Design a network upgrade using packet tracer
+	•	Investigate secure key distribution among IoT nodes
+	•	Review and compare Centre of Internet Security (CIS) benchmarking practices in big cloud service providers
+
+
+Architecture Projects
+
+CYBOK Knowledge Areas: Authentication, Authorisation & Accountability, Cryptography, Software Security
+Activities: Deploy, Analyse, Design
+
+	•	Investigate and review IoT operating systems security.
+	•	Deploy light weight cryptography for IoT sensor networks
+	•	Deploy, review and analyse Quantum Key Distribution
+	•	Design, deploy and analyse virtual private networks
+	•	Deploy/design a traffic analysis tool to detect man-in-the-middle attacks
+	•	Investigate Self Sovereign Identity framework for IoT network security
+
+
+
+Security Survey or Case Study Projects
+
+CYBOK Knowledge Areas: Human Factors, Privacy & Online Rights Activities: Questionnaire Data Collection and Analysis
+	•	Investigate cyber psychology in the context of user behaviour and email-based malware
+
+	•	Conduct a survey of security tools and/or techniques Linux OS
+	•	Conduct a survey of security tools and/or techniques Android OS
+
+
+
+Security Data Collection, Analysis and Visualisation Projects
+
+CYBOK Knowledge Areas: Security Operations & Incident Management Activities: Acquire, Sanitise, Analyse, Visualise
+Develop a web scraping intelligence gathering tool
+
+	•	Investigate techniques for predicting cyber-attacks from an appropriate dataset
+	•	Collate, analyse and visualise open source Bluetooth data
+	•	Use machine learning to identify and analyse trends in datasets (e.g. log files, web history, network traffic and memory dumps)
+	•	Use machine learning or other techniques to identify and analyse anomalies in device behaviour (e.g. mobile, IoT, desktops etc.).
+	•	Create a tool for analysing and visualising email headers
+	•	A real-time Machine Learning based Intrusion Detection System (IDS) for Cyber-Physical System
+	•	GAN-assisted credit card fraud transaction detection
+
+
+
+Digital Forensics Activity or Investigation Projects
+
+CYBOK Knowledge Area: Forensics
+
+Activities: Investigate, Acquire, Analyse, Create
+
+	•	Investigate tools and techniques for conducting website cookie forensics
+	•	Investigate tools and techniques for conducting web browser forensics
+	•	Investigate tools and techniques for conducting forensic analysis of portable and runtime operating systems
+
+
+State of the Art System, Software, Hardware or Literature Review Projects
+
+CYBOK Knowledge Areas: Risk Management & Governance
+
+Activities: Taxonomy, Ontology or Framework
+
+	•	Investigate tools and techniques for evaluating the efficacy of online password-strength meters
+	•	Conduct a comprehensive review of the cyber security job market
+	•	Conduct a state-of-the-art review of open-source cloud software
+	•	Conduct a state-of-the-art review of open-source intelligence sources
+	•	Review and compare the benefits and limitations between Splunk, Qlik and Elastic Search
+	•	Conduct a state-of-the-art review of physical layer security in 4/5G cellular communications
+	•	Review and investigate Zero-Trust Model for distributed network and IoT
+
+Cyber Security Education Projects CYBOK Knowledge Areas: All
+Activities: Investigate, Design, Create, Deploy, Test
+
+	•	Conduct an in-depth analysis of Google Dorks by example: (https://securitytrails.com/blog/google-hacking-techniques)
+	•	Develop the equivalent of “create_vm.sh” for personal PCs and laptop Oss
+	•	Create a random email generator and receiver for a cyber range
+	•	Designing a simulator for visually demonstration of cryptographic protocols
+
+
+
+Cyber Security User Experience and User Interface Projects
+
+CYBOK Knowledge Areas: Human Factors Activities: Investigate, Design, Create, Deploy, Test
+	•	Create an improved UI for Nettacker
+	•	Investigate the use of visualisation for improving password complexity
+	•	Investigate the correlation between complexity of a password and the feedback to the user
+	•	New methods of exploiting cyber psychology and prevention methods

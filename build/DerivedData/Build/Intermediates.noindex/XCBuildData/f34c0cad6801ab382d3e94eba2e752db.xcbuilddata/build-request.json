@@ -1,0 +1,80 @@
+{
+  "buildCommand" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildAndRun"
+  },
+  "configuredTargets" : [
+    {
+      "guid" : "7abfb2559f5bb878b738e3dcdad074813d1778088ef56c85a1a50da30ee4d6ac"
+    },
+    {
+      "guid" : "7abfb2559f5bb878b738e3dcdad07481090bf91dd77a302946441d0f0d85f634"
+    },
+    {
+      "guid" : "7abfb2559f5bb878b738e3dcdad07481a79dcf910ace395165a949ca994bcd15"
+    },
+    {
+      "guid" : "7abfb2559f5bb878b738e3dcdad07481f06fafc3f2cb7188584e40bf720a9fc2"
+    }
+  ],
+  "containerPath" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/MyriadIOS.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "dependencyScope" : "workspace",
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "arm64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "hostTargetedPlatform" : null,
+      "platform" : "iphonesimulator",
+      "sdk" : "iphonesimulator26.4",
+      "sdkVariant" : "iphonesimulator",
+      "supportedArchitectures" : [
+        "arm64"
+      ],
+      "targetArchitecture" : "arm64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Products",
+      "derivedDataPath" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Index.noindex/PrecompiledHeaders",
+      "pchPath" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "commandLine" : {
+        "table" : {
+
+        }
+      },
+      "synthesized" : {
+        "table" : {
+          "ASSETCATALOG_FILTER_FOR_DEVICE_MODEL" : "iPhone18,1",
+          "ASSETCATALOG_FILTER_FOR_DEVICE_OS_VERSION" : "26.4",
+          "ASSETCATALOG_FILTER_FOR_THINNING_DEVICE_CONFIGURATION" : "iPhone18,1",
+          "BUILD_ACTIVE_RESOURCES_ONLY" : "YES",
+          "COLOR_DIAGNOSTICS" : "YES",
+          "diagnostic_message_length" : "80",
+          "ENABLE_PREVIEWS" : "NO",
+          "ENABLE_XOJIT_PREVIEWS" : "YES",
+          "TARGET_DEVICE_IDENTIFIER" : "C13D1910-C447-4A63-A596-C966607EF83F",
+          "TARGET_DEVICE_MODEL" : "iPhone18,1",
+          "TARGET_DEVICE_OS_VERSION" : "26.4",
+          "TARGET_DEVICE_PLATFORM_NAME" : "iphonesimulator"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "test",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

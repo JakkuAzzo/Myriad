@@ -6,10 +6,187 @@
 	<integer>12</integer>
 	<key>logs</key>
 	<dict>
-		<key>EB8E1125-CA03-4AB9-9F75-3EE9F542AD96</key>
+		<key>05E1727B-DCCB-4D49-A5A3-DE16CA034BFD</key>
 		<dict>
 			<key>auxiliaryLogUniqueIdentifier</key>
-			<string>64DFABE3-20FA-41F0-8B6D-517D275BFAD2</string>
+			<string>12446868-83B3-4433-894F-80642B97D2D2</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>1</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.unit.cocoaUnitTest</string>
+			<key>fileName</key>
+			<string>Test-MyriadIOS-2026.04.16_00-52-11-+0100.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>2</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MyriadIOS project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MyriadIOS</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Test MyriadIOS</string>
+			<key>timeStartedRecording</key>
+			<real>797989931.61969602</real>
+			<key>timeStoppedRecording</key>
+			<real>797989933.69328403</real>
+			<key>title</key>
+			<string>Test MyriadIOS</string>
+			<key>uniqueIdentifier</key>
+			<string>05E1727B-DCCB-4D49-A5A3-DE16CA034BFD</string>
+		</dict>
+		<key>07F89B0B-4E4B-4C3B-A971-F186F875BBAD</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>85E58F9F-1C76-49A0-933A-5132FD08A534</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>27</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.unit.cocoaUnitTest</string>
+			<key>fileName</key>
+			<string>Test-MyriadIOS-2026.04.16_00-51-23-+0100.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>28</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MyriadIOS project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MyriadIOS</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Test MyriadIOS</string>
+			<key>timeStartedRecording</key>
+			<real>797989883.27674198</real>
+			<key>timeStoppedRecording</key>
+			<real>797989885.055511</real>
+			<key>title</key>
+			<string>Test MyriadIOS</string>
+			<key>uniqueIdentifier</key>
+			<string>07F89B0B-4E4B-4C3B-A971-F186F875BBAD</string>
+		</dict>
+		<key>1389DD79-6BD9-4512-90E0-F4BCF18C39F7</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>512933A3-41CA-4C80-8E54-09398A551637</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>5</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.unit.cocoaUnitTest</string>
+			<key>fileName</key>
+			<string>Test-MyriadIOS-2026.04.16_00-51-47-+0100.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>5</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MyriadIOS project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MyriadIOS</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Test MyriadIOS</string>
+			<key>timeStartedRecording</key>
+			<real>797989907.212767</real>
+			<key>timeStoppedRecording</key>
+			<real>797989913.02260804</real>
+			<key>title</key>
+			<string>Test MyriadIOS</string>
+			<key>uniqueIdentifier</key>
+			<string>1389DD79-6BD9-4512-90E0-F4BCF18C39F7</string>
+		</dict>
+		<key>194EA07F-FA40-42DC-A49B-FF3C0D122CD9</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>4AD80133-24B7-4BFD-A0BD-55477EC26230</string>
 			<key>auxiliaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
@@ -30,7 +207,7 @@
 			<key>domainType</key>
 			<string>com.apple.dt.unit.cocoaUnitTest</string>
 			<key>fileName</key>
-			<string>Test-MyriadIOS-2026.04.15_23-15-50-+0100.xcresult</string>
+			<string>Test-MyriadIOS-2026.04.16_00-54-18-+0100.xcresult</string>
 			<key>hasAuxiliaryLog</key>
 			<true/>
 			<key>hasPrimaryLog</key>
@@ -57,13 +234,72 @@
 			<key>signature</key>
 			<string>Test MyriadIOS</string>
 			<key>timeStartedRecording</key>
-			<real>797984150.40200698</real>
+			<real>797990058.55885005</real>
 			<key>timeStoppedRecording</key>
-			<real>797984318.39616799</real>
+			<real>797990090.54062295</real>
 			<key>title</key>
 			<string>Test MyriadIOS</string>
 			<key>uniqueIdentifier</key>
-			<string>EB8E1125-CA03-4AB9-9F75-3EE9F542AD96</string>
+			<string>194EA07F-FA40-42DC-A49B-FF3C0D122CD9</string>
+		</dict>
+		<key>3B38F081-D2B5-4EF7-BA30-11386B3298CC</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>E575178E-5A3E-42B3-8361-B7F5B262889C</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.unit.cocoaUnitTest</string>
+			<key>fileName</key>
+			<string>Test-MyriadIOS-2026.04.16_00-52-25-+0100.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MyriadIOS project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MyriadIOS</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Test MyriadIOS</string>
+			<key>timeStartedRecording</key>
+			<real>797989945.48028004</real>
+			<key>timeStoppedRecording</key>
+			<real>797989978.45057404</real>
+			<key>title</key>
+			<string>Test MyriadIOS</string>
+			<key>uniqueIdentifier</key>
+			<string>3B38F081-D2B5-4EF7-BA30-11386B3298CC</string>
 		</dict>
 	</dict>
 </dict>

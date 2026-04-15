@@ -1,4 +1,0 @@
-
-
-*** If you believe this error represents a bug, please attach the result bundle at /Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Logs/Test/Test-MyriadIOS-2026.04.15_23-13-19-+0100.xcresult
-

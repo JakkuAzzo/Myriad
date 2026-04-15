@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40BB6706029C3265A749C3C1 /* MyriadModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2CA58B62A779E55DBEF323 /* MyriadModels.swift */; };
 		45749C73C9BD2ABE34DE92A8 /* MyriadIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FB12F196381CF57F9BCADF /* MyriadIOSTests.swift */; };
+		74D78452207873EB0A0E198A /* MyriadAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344B0B200E6F5698C2DF8F3D /* MyriadAppState.swift */; };
 		A0347146F442C3E3EFF424B5 /* MyriadIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4518BA669DDB287289D38ECD /* MyriadIOSUITests.swift */; };
 		C18F6FB2BA3CE3D955B7E5D4 /* MyriadWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2E026A24D1D4B64282AB7 /* MyriadWidget.swift */; };
 		C7864342653A9A8ED691C473 /* MyriadIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3417513E4E3C12EACDA7CEAA /* MyriadIOSApp.swift */; };
 		CFFA2D2A9B019472AD41C295 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149CFBEECB6F4DAC6C34A95A /* ContentView.swift */; };
+		DB9CC861E80FDC74F6AD5848 /* MyriadAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B4E0D258A374F0C33E1557 /* MyriadAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,14 +38,17 @@
 		149CFBEECB6F4DAC6C34A95A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		17239756C397C6EEA288BC0B /* MyriadIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MyriadIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3417513E4E3C12EACDA7CEAA /* MyriadIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyriadIOSApp.swift; sourceTree = "<group>"; };
+		344B0B200E6F5698C2DF8F3D /* MyriadAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyriadAppState.swift; sourceTree = "<group>"; };
 		3B719145DD6C2FF3EF392F92 /* MyriadWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MyriadWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4518BA669DDB287289D38ECD /* MyriadIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyriadIOSUITests.swift; sourceTree = "<group>"; };
 		5D8EAA5AF653C55B36A109F7 /* MyriadIOSUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MyriadIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E2CA58B62A779E55DBEF323 /* MyriadModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyriadModels.swift; sourceTree = "<group>"; };
 		7567F675D7AEBE59D5EDD6B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AC26A8B3C6BAA0FB781938E4 /* MyriadIOSTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MyriadIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2FB12F196381CF57F9BCADF /* MyriadIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyriadIOSTests.swift; sourceTree = "<group>"; };
 		CBD2E026A24D1D4B64282AB7 /* MyriadWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyriadWidget.swift; sourceTree = "<group>"; };
 		CF6339022247FE9E80BF1F92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F0B4E0D258A374F0C33E1557 /* MyriadAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyriadAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -70,7 +76,10 @@
 			isa = PBXGroup;
 			children = (
 				149CFBEECB6F4DAC6C34A95A /* ContentView.swift */,
+				F0B4E0D258A374F0C33E1557 /* MyriadAPI.swift */,
+				344B0B200E6F5698C2DF8F3D /* MyriadAppState.swift */,
 				3417513E4E3C12EACDA7CEAA /* MyriadIOSApp.swift */,
+				6E2CA58B62A779E55DBEF323 /* MyriadModels.swift */,
 			);
 			name = Sources;
 			path = MyriadIOS/Sources;
@@ -244,7 +253,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFFA2D2A9B019472AD41C295 /* ContentView.swift in Sources */,
+				DB9CC861E80FDC74F6AD5848 /* MyriadAPI.swift in Sources */,
+				74D78452207873EB0A0E198A /* MyriadAppState.swift in Sources */,
 				C7864342653A9A8ED691C473 /* MyriadIOSApp.swift in Sources */,
+				40BB6706029C3265A749C3C1 /* MyriadModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

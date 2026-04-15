@@ -13,7 +13,7 @@
 				<key>testPlaceholderBehavior</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0018590688705444336</real>
+					<real>0.001195073127746582</real>
 				</dict>
 			</dict>
 		</dict>
@@ -24,7 +24,7 @@
 				<key>testAppLaunchShowsTitle</key>
 				<dict>
 					<key>mrnet</key>
-					<real>8.6361490488052368</real>
+					<real>4.558790922164917</real>
 				</dict>
 			</dict>
 		</dict>

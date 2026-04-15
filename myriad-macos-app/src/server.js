@@ -25,8 +25,20 @@ const {
   purgeExpiredSummaryCache,
   upsertSummaryCache,
   getRecentEventSamples,
+  listHabitGoals,
+  upsertHabitGoal,
+  deleteHabitGoal,
+  getHabitGoalProgress,
+  analyzeTimeOfDayRisk,
+  analyzeDeviceRisk,
+  calculateRelapseTrend,
+  calculateRelapseRiskScore,
 } = require('./db');
-const { anonymizeIdentifier } = require('./anonymize');
+const {
+  anonymizeIdentifier,
+  validateSaltConfiguration,
+  getSaltConfigurationStatus,
+} = require('./anonymize');
 const {
   parseWhatsAppExport,
   parseTelegramExport,
@@ -131,6 +143,8 @@ function sanitizeEvent(raw) {
 }
 
 function createApp() {
+  validateSaltConfiguration();
+
   const app = express();
   app.use(express.json({ limit: '10mb' }));
   app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -186,10 +200,16 @@ function createApp() {
   }
 
   app.get('/api/health', (req, res) => {
+    const saltStatus = getSaltConfigurationStatus();
     res.json({
       status: 'ok',
       app: 'Myriad',
       users: listUsers().length,
+      privacy: {
+        strictMode: saltStatus.strictMode,
+        usingDefaultSalt: saltStatus.usingDefaultSalt,
+        warning: saltStatus.warning,
+      },
     });
   });
 
@@ -477,6 +497,119 @@ function createApp() {
     const device = typeof req.body.device === 'string' ? req.body.device : '';
     const updated = reassignUnknownEventsToDevice(req.user.id, device);
     res.json({ updated, device: device || null });
+  });
+
+  app.get('/api/habits/goals', resolveUser, (req, res) => {
+    res.json({ goals: listHabitGoals(req.user.id) });
+  });
+
+  app.post('/api/habits/goals', resolveUser, (req, res) => {
+    const goal = upsertHabitGoal(req.user.id, req.body || {});
+    if (!goal) {
+      return res.status(400).json({
+        error: 'Goal requires title, category, and maxDailyMinutes.',
+      });
+    }
+
+    return res.status(201).json({ goal });
+  });
+
+  app.delete('/api/habits/goals/:id', resolveUser, (req, res) => {
+    const deleted = deleteHabitGoal(req.user.id, req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ error: 'Goal not found.' });
+    }
+    return res.json({ deleted: true });
+  });
+
+  app.get('/api/habits/plan', resolveUser, (req, res) => {
+    const days = Number(req.query.days || 7);
+    const summary = getSummary(req.user.id, days, 'all');
+    const progress = getHabitGoalProgress(req.user.id, days);
+
+    const interventions = progress.map((row) => {
+      const riskScore = calculateRelapseRiskScore(req.user.id, row.goal.id, days);
+      const riskLevel = riskScore?.relapseRiskLevel || 'low';
+      const baseActions = [];
+
+      if (row.goal.interventionPlan) {
+        baseActions.push(`Your plan: ${row.goal.interventionPlan}`);
+      }
+
+      if (riskLevel === 'critical') {
+        baseActions.push(
+          `🚨 CRITICAL RISK: Your usage pattern is dangerously escalating. Consider blocking ${row.goal.category} temporarily or seeking additional support.`
+        );
+        if (riskScore?.timeOfDayAnalysis?.highRiskHours?.[0]) {
+          const risky = riskScore.timeOfDayAnalysis.highRiskHours[0];
+          baseActions.push(`Most risky time: ${risky.hour}:00 (${risky.totalMinutes} min). Pre-plan activities for then.`);
+        }
+      } else if (riskLevel === 'high') {
+        baseActions.push(
+          `⚠️ HIGH RISK: Escalating usage detected. Set app-level time limits and enable notifications at ${row.goal.maxDailyMinutes - 10} minutes.`
+        );
+        if (riskScore?.deviceAnalysis?.highestRiskDevice) {
+          const device = riskScore.deviceAnalysis.highestRiskDevice;
+          baseActions.push(`${device.device} is your trigger device. Start with that one.`);
+        }
+      } else if (riskLevel === 'moderate') {
+        baseActions.push(`⏱️ Moderate risk. Set a 15-minute pre-use pause on ${row.goal.device === 'all' ? 'all devices' : row.goal.device}.`);
+      } else {
+        baseActions.push('✅ You are on track. Maintain current habits for another week.');
+      }
+
+      if (row.status === 'off-track' && riskLevel !== 'critical') {
+        baseActions.push(
+          `Trigger a hard stop when ${row.goal.category} exceeds ${row.goal.maxDailyMinutes} minutes/day.`
+        );
+      } else if (row.status === 'at-risk' && riskLevel !== 'high' && riskLevel !== 'critical') {
+        baseActions.push(`Replace one ${row.goal.category} session with an alternative activity.`);
+      }
+
+      return {
+        goalId: row.goal.id,
+        goalTitle: row.goal.title,
+        status: row.status,
+        riskLevel,
+        actions: baseActions,
+        riskDetails: riskScore ? {
+          overallScore: riskScore.overallScore,
+          relapseRiskLevel: riskScore.relapseRiskLevel,
+          recommendations: riskScore.recommendations,
+        } : null,
+      };
+    });
+
+    return res.json({
+      windowDays: Number.isFinite(days) ? days : 7,
+      multiDeviceSnapshot: {
+        devices: summary.deviceBreakdown,
+        platforms: summary.platformBreakdown,
+      },
+      goalProgress: progress,
+      interventions,
+    });
+  });
+
+  app.get('/api/habits/risk', resolveUser, (req, res) => {
+    const days = Number(req.query.days || 7);
+    const goalId = Number(req.query.goalId);
+
+    if (!Number.isInteger(goalId) || goalId <= 0) {
+      return res.status(400).json({ error: 'goalId is required and must be a positive integer' });
+    }
+
+    const riskScore = calculateRelapseRiskScore(req.user.id, goalId, days);
+
+    if (!riskScore) {
+      return res.status(404).json({ error: 'Goal not found or insufficient data' });
+    }
+
+    return res.json({
+      windowDays: Number.isFinite(days) ? days : 7,
+      goalId,
+      ...riskScore,
+    });
   });
 
   app.get('/stats', (req, res) => {

@@ -48,6 +48,36 @@
         <ul id="aiSummaryHighlights"></ul>
       </section>
 
+      <section class="panel">
+        <h2>Habit Change Goals</h2>
+        <p class="muted">Set limits to reduce high-friction habits and get actionable intervention prompts.</p>
+        <div class="form-row">
+          <input id="goalTitleInput" type="text" placeholder="Goal title (e.g. Reduce doomscrolling)" />
+          <input id="goalCategoryInput" type="text" placeholder="Category (e.g. social)" />
+          <select id="goalDeviceInput">
+            <option value="all" selected>All devices</option>
+            <option value="phone">Phone</option>
+            <option value="laptop">Laptop</option>
+            <option value="tablet">Tablet</option>
+            <option value="workstation">Workstation</option>
+            <option value="other">Other</option>
+          </select>
+          <input id="goalMaxDailyMinutesInput" type="number" min="1" max="1440" value="90" placeholder="Max daily minutes" />
+        </div>
+        <div class="form-row">
+          <input id="goalPlanInput" type="text" placeholder="Intervention plan (e.g. lock app after 10pm)" />
+          <button id="saveGoalBtn">Save Goal</button>
+        </div>
+        <p id="goalStatus" class="muted"></p>
+        <ul id="goalList"></ul>
+      </section>
+
+      <section class="panel">
+        <h2>Intervention Plan</h2>
+        <p class="muted">Targeted suggestions to help stop unwanted usage patterns across devices.</p>
+        <ul id="interventionList"></ul>
+      </section>
+
       <section class="grid">
         <article class="panel chart-panel">
           <h2>Active Hours</h2>

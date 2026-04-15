@@ -139,6 +139,23 @@ db.exec(`
 
   CREATE INDEX IF NOT EXISTS idx_summary_cache_expires_at ON summary_cache (expires_at);
   CREATE INDEX IF NOT EXISTS idx_summary_cache_scope_user ON summary_cache (scope, user_id);
+
+  CREATE TABLE IF NOT EXISTS habit_goals (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    title TEXT NOT NULL,
+    category TEXT NOT NULL,
+    device TEXT NOT NULL DEFAULT 'all',
+    max_daily_minutes INTEGER NOT NULL,
+    intervention_plan TEXT,
+    active INTEGER NOT NULL DEFAULT 1,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_habit_goals_user ON habit_goals (user_id);
+  CREATE INDEX IF NOT EXISTS idx_habit_goals_active ON habit_goals (active);
 `);
 
 function buildSummaryCacheKey({ scope, userId, days, device }) {
@@ -607,6 +624,435 @@ function getGlobalSummary(days, device) {
   return getSummaryForUsers([], days, device);
 }
 
+function sanitizeGoalInput(input = {}) {
+  const title = typeof input.title === 'string' ? input.title.trim().slice(0, 80) : '';
+  const category = typeof input.category === 'string' ? input.category.trim().slice(0, 40) : '';
+  const device = typeof input.device === 'string' && input.device.trim()
+    ? input.device.trim().slice(0, 40)
+    : 'all';
+  const maxDailyMinutesRaw = Number(input.maxDailyMinutes);
+  const maxDailyMinutes = Number.isFinite(maxDailyMinutesRaw)
+    ? Math.max(1, Math.min(24 * 60, Math.round(maxDailyMinutesRaw)))
+    : null;
+  const interventionPlan = typeof input.interventionPlan === 'string'
+    ? input.interventionPlan.trim().slice(0, 500)
+    : null;
+  const active = input.active === false ? 0 : 1;
+
+  if (!title || !category || !maxDailyMinutes) {
+    return null;
+  }
+
+  return {
+    title,
+    category,
+    device,
+    maxDailyMinutes,
+    interventionPlan,
+    active,
+  };
+}
+
+function listHabitGoals(userId) {
+  return db
+    .prepare(
+      `
+      SELECT
+        id,
+        title,
+        category,
+        device,
+        max_daily_minutes AS maxDailyMinutes,
+        intervention_plan AS interventionPlan,
+        active,
+        created_at AS createdAt,
+        updated_at AS updatedAt
+      FROM habit_goals
+      WHERE user_id = ?
+      ORDER BY active DESC, created_at DESC
+    `
+    )
+    .all(userId)
+    .map((row) => ({
+      ...row,
+      active: Boolean(row.active),
+    }));
+}
+
+function upsertHabitGoal(userId, input) {
+  const payload = sanitizeGoalInput(input);
+  if (!payload) {
+    return null;
+  }
+
+  const goalId = Number(input && input.id);
+  if (Number.isInteger(goalId) && goalId > 0) {
+    const result = db
+      .prepare(
+        `
+        UPDATE habit_goals
+        SET
+          title = ?,
+          category = ?,
+          device = ?,
+          max_daily_minutes = ?,
+          intervention_plan = ?,
+          active = ?,
+          updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+        AND user_id = ?
+      `
+      )
+      .run(
+        payload.title,
+        payload.category,
+        payload.device,
+        payload.maxDailyMinutes,
+        payload.interventionPlan,
+        payload.active,
+        goalId,
+        userId
+      );
+
+    if (result.changes > 0) {
+      return listHabitGoals(userId).find((x) => x.id === goalId) || null;
+    }
+  }
+
+  const inserted = db
+    .prepare(
+      `
+      INSERT INTO habit_goals (
+        user_id,
+        title,
+        category,
+        device,
+        max_daily_minutes,
+        intervention_plan,
+        active
+      ) VALUES (?, ?, ?, ?, ?, ?, ?)
+    `
+    )
+    .run(
+      userId,
+      payload.title,
+      payload.category,
+      payload.device,
+      payload.maxDailyMinutes,
+      payload.interventionPlan,
+      payload.active
+    );
+
+  const id = Number(inserted.lastInsertRowid);
+  return listHabitGoals(userId).find((x) => x.id === id) || null;
+}
+
+function deleteHabitGoal(userId, goalId) {
+  const numericGoalId = Number(goalId);
+  if (!Number.isInteger(numericGoalId) || numericGoalId <= 0) {
+    return 0;
+  }
+
+  const result = db
+    .prepare('DELETE FROM habit_goals WHERE id = ? AND user_id = ?')
+    .run(numericGoalId, userId);
+
+  return result.changes || 0;
+}
+
+function getHabitGoalProgress(userId, days) {
+  const safeDays = Number.isFinite(days) ? Math.max(1, Math.min(days, 90)) : 7;
+  const goals = listHabitGoals(userId).filter((x) => x.active);
+
+  return goals.map((goal) => {
+    const hasDeviceFilter = goal.device && goal.device !== 'all';
+    const deviceClause = hasDeviceFilter ? 'AND device = ?' : '';
+    const params = [userId, safeDays, goal.category];
+    if (hasDeviceFilter) {
+      params.push(goal.device);
+    }
+
+    const rows = db
+      .prepare(
+        `
+        SELECT
+          DATE(occurred_at) AS day,
+          COALESCE(SUM(duration_minutes), 0) AS dayMinutes
+        FROM events
+        WHERE user_id = ?
+        AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+        AND category = ?
+        ${deviceClause}
+        GROUP BY day
+      `
+      )
+      .all(...params);
+
+    const trackedDays = rows.length;
+    const totalMinutes = rows.reduce((sum, row) => sum + Number(row.dayMinutes || 0), 0);
+    const avgDailyMinutes = trackedDays > 0 ? Number((totalMinutes / trackedDays).toFixed(1)) : 0;
+    const overLimitDays = rows.filter((row) => Number(row.dayMinutes || 0) > goal.maxDailyMinutes).length;
+    const percentToLimit = goal.maxDailyMinutes > 0
+      ? Number(((avgDailyMinutes / goal.maxDailyMinutes) * 100).toFixed(1))
+      : 0;
+
+    let status = 'on-track';
+    if (avgDailyMinutes > goal.maxDailyMinutes * 1.15 || overLimitDays >= Math.max(1, Math.floor(safeDays / 3))) {
+      status = 'off-track';
+    } else if (avgDailyMinutes > goal.maxDailyMinutes) {
+      status = 'at-risk';
+    }
+
+    return {
+      goal,
+      trackedDays,
+      totalMinutes,
+      avgDailyMinutes,
+      overLimitDays,
+      percentToLimit,
+      status,
+    };
+  });
+}
+
+function analyzeTimeOfDayRisk(userId, goalId, days = 7) {
+  const safeDays = Number.isFinite(days) ? Math.max(1, Math.min(days, 90)) : 7;
+  const goal = db
+    .prepare('SELECT category, device FROM habit_goals WHERE id = ? AND user_id = ?')
+    .get(goalId, userId);
+
+  if (!goal) {
+    return null;
+  }
+
+  const deviceClause = goal.device && goal.device !== 'all' ? 'AND device = ?' : '';
+  const params = [userId, safeDays, goal.category];
+  if (goal.device && goal.device !== 'all') {
+    params.push(goal.device);
+  }
+
+  const hourlyStats = db
+    .prepare(
+      `
+      SELECT
+        STRFTIME('%H', occurred_at) AS hour,
+        COUNT(*) AS eventCount,
+        COALESCE(SUM(duration_minutes), 0) AS totalMinutes
+      FROM events
+      WHERE user_id = ?
+      AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      AND category = ?
+      ${deviceClause}
+      GROUP BY hour
+      ORDER BY totalMinutes DESC
+    `
+    )
+    .all(...params);
+
+  const highRiskHours = hourlyStats.slice(0, 3).map((row) => ({
+    hour: String(row.hour).padStart(2, '0'),
+    events: row.eventCount,
+    totalMinutes: row.totalMinutes,
+  }));
+
+  const riskScore = Math.min(100, highRiskHours.reduce((sum, h) => sum + h.totalMinutes, 0));
+
+  return {
+    highRiskHours,
+    timeOfDayRiskScore: riskScore,
+  };
+}
+
+function analyzeDeviceRisk(userId, goalId, days = 7) {
+  const safeDays = Number.isFinite(days) ? Math.max(1, Math.min(days, 90)) : 7;
+  const goal = db
+    .prepare('SELECT category FROM habit_goals WHERE id = ? AND user_id = ?')
+    .get(goalId, userId);
+
+  if (!goal) {
+    return null;
+  }
+
+  const deviceStats = db
+    .prepare(
+      `
+      SELECT
+        device,
+        COUNT(*) AS eventCount,
+        COALESCE(SUM(duration_minutes), 0) AS totalMinutes
+      FROM events
+      WHERE user_id = ?
+      AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      AND category = ?
+      GROUP BY device
+      ORDER BY totalMinutes DESC
+    `
+    )
+    .all(userId, safeDays, goal.category);
+
+  const riskByDevice = deviceStats.map((row) => ({
+    device: row.device || 'unknown',
+    events: row.eventCount,
+    totalMinutes: row.totalMinutes,
+  }));
+
+  const highestRiskDevice = riskByDevice[0] || null;
+
+  return {
+    riskByDevice,
+    highestRiskDevice,
+  };
+}
+
+function calculateRelapseTrend(userId, goalId, days = 7) {
+  const safeDays = Number.isFinite(days) ? Math.max(1, Math.min(days, 90)) : 7;
+  const goal = db
+    .prepare('SELECT category, max_daily_minutes FROM habit_goals WHERE id = ? AND user_id = ?')
+    .get(goalId, userId);
+
+  if (!goal) {
+    return null;
+  }
+
+  const dailyStats = db
+    .prepare(
+      `
+      SELECT
+        DATE(occurred_at) AS day,
+        COALESCE(SUM(duration_minutes), 0) AS dayMinutes
+      FROM events
+      WHERE user_id = ?
+      AND DATETIME(occurred_at) >= DATETIME('now', '-' || ? || ' days')
+      AND category = ?
+      GROUP BY day
+      ORDER BY day
+    `
+    )
+    .all(userId, safeDays, goal.category);
+
+  if (dailyStats.length < 2) {
+    return {
+      trend: 'insufficient-data',
+      trendDirection: 'stable',
+      overLimitCount: dailyStats.filter((d) => Number(d.dayMinutes) > goal.max_daily_minutes).length,
+    };
+  }
+
+  const firstHalf = dailyStats.slice(0, Math.floor(dailyStats.length / 2));
+  const secondHalf = dailyStats.slice(Math.floor(dailyStats.length / 2));
+
+  const firstHalfAvg = firstHalf.reduce((sum, d) => sum + Number(d.dayMinutes), 0) / firstHalf.length;
+  const secondHalfAvg = secondHalf.reduce((sum, d) => sum + Number(d.dayMinutes), 0) / secondHalf.length;
+
+  let trendDirection = 'stable';
+  if (secondHalfAvg > firstHalfAvg * 1.1) {
+    trendDirection = 'worsening';
+  } else if (secondHalfAvg < firstHalfAvg * 0.9) {
+    trendDirection = 'improving';
+  }
+
+  const overLimitCount = dailyStats.filter((d) => Number(d.dayMinutes) > goal.max_daily_minutes).length;
+  const trend = trendDirection === 'worsening'
+    ? 'high'
+    : trendDirection === 'improving'
+      ? 'low'
+      : 'moderate';
+
+  return {
+    trend,
+    trendDirection,
+    overLimitCount,
+    firstHalfAvg: Number(firstHalfAvg.toFixed(1)),
+    secondHalfAvg: Number(secondHalfAvg.toFixed(1)),
+  };
+}
+
+function calculateRelapseRiskScore(userId, goalId, days = 7) {
+  const safeDays = Number.isFinite(days) ? Math.max(1, Math.min(days, 90)) : 7;
+  const timeOfDayRisk = analyzeTimeOfDayRisk(userId, goalId, safeDays);
+  const deviceRisk = analyzeDeviceRisk(userId, goalId, safeDays);
+  const trendAnalysis = calculateRelapseTrend(userId, goalId, safeDays);
+
+  if (!timeOfDayRisk || !deviceRisk || !trendAnalysis) {
+    return null;
+  }
+
+  const progress = getHabitGoalProgress(userId, safeDays).find((p) => p.goal.id === goalId);
+  if (!progress) {
+    return null;
+  }
+
+  let overallScore = 0;
+
+  if (trendAnalysis.trend === 'high') {
+    overallScore += 35;
+  } else if (trendAnalysis.trend === 'moderate') {
+    overallScore += 20;
+  }
+
+  overallScore += Math.min(30, Math.round(progress.percentToLimit / 3));
+
+  if (progress.status === 'off-track') {
+    overallScore = Math.min(100, overallScore + 20);
+  } else if (progress.status === 'at-risk') {
+    overallScore = Math.min(100, overallScore + 10);
+  }
+
+  const relapseRiskLevel = overallScore >= 70
+    ? 'critical'
+    : overallScore >= 50
+      ? 'high'
+      : overallScore >= 30
+        ? 'moderate'
+        : 'low';
+
+  return {
+    overallScore,
+    relapseRiskLevel,
+    components: {
+      trendRisk: trendAnalysis.trend,
+      timeOfDayRisk: timeOfDayRisk.timeOfDayRiskScore,
+      deviceRisk: deviceRisk.highestRiskDevice,
+      progressTowardLimit: progress.percentToLimit,
+    },
+    trendAnalysis,
+    timeOfDayAnalysis: timeOfDayRisk,
+    deviceAnalysis: deviceRisk,
+    recommendations: generateRiskRecommendations(progress, trendAnalysis, deviceRisk, relapseRiskLevel),
+  };
+}
+
+function generateRiskRecommendations(progress, trendAnalysis, deviceRisk, riskLevel) {
+  const recommendations = [];
+
+  if (riskLevel === 'critical') {
+    recommendations.push(
+      `URGENT: Your ${progress.goal.category} usage is critically high. Consider seeking support now.`
+    );
+  }
+
+  if (trendAnalysis.trendDirection === 'worsening') {
+    recommendations.push(`Your usage pattern is getting worse. Implement barriers immediately.`);
+  }
+
+  if (deviceRisk.highestRiskDevice) {
+    recommendations.push(
+      `${deviceRisk.highestRiskDevice.device} is your highest-risk device (${deviceRisk.highestRiskDevice.totalMinutes} min). Consider app-level blocks.`
+    );
+  }
+
+  if (progress.avgDailyMinutes > progress.goal.maxDailyMinutes) {
+    const excess = Math.round(progress.avgDailyMinutes - progress.goal.maxDailyMinutes);
+    recommendations.push(`You're averaging ${excess} minutes over your goal. Start with 5-min daily reductions.`);
+  }
+
+  if (recommendations.length === 0) {
+    recommendations.push(`Current trend is stable. Continue monitoring and maintain your strategy.`);
+  }
+
+  return recommendations;
+}
+
 module.exports = {
   createUser,
   getUserByUsername,
@@ -631,4 +1077,12 @@ module.exports = {
   upsertSummaryCache,
   invalidateSummaryCacheForUser,
   getRecentEventSamples,
+  listHabitGoals,
+  upsertHabitGoal,
+  deleteHabitGoal,
+  getHabitGoalProgress,
+  analyzeTimeOfDayRisk,
+  analyzeDeviceRisk,
+  calculateRelapseTrend,
+  calculateRelapseRiskScore,
 };

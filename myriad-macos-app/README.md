@@ -1,8 +1,8 @@
 # Myriad
 
-Myriad is a local-first, privacy-preserving mindful habit tracker built for Said Osman's FYP.
+Myriad is a local-first, privacy-preserving mindful behavior-change system built for Said Osman's FYP.
 
-It collects and summarizes chat and browsing activity, then presents analytics in a desktop-friendly dashboard while keeping data on the local machine.
+It collects and summarizes chat and browsing activity across devices, then presents analytics and intervention guidance while keeping data on the local machine.
 
 ## Key features
 
@@ -22,6 +22,11 @@ It collects and summarizes chat and browsing activity, then presents analytics i
   - sentiment trend
   - chat frequency
   - top topics
+- Habit-change goal management:
+  - set per-category max daily minutes
+  - target specific devices or all devices
+  - define intervention plans to help stop unwanted habits
+- Intervention planner with actionable prompts based on recent usage patterns
 - Automated tests for API and anonymization logic
 
 ## Tech stack
@@ -39,13 +44,18 @@ It collects and summarizes chat and browsing activity, then presents analytics i
 npm install
 ```
 
-### 2. Optional: set anonymization salt
+### 2. Configure anonymization salt
 
-If not set, the app falls back to a development default. For real usage, use a strong secret.
+For real usage, always set a strong anonymization salt:
 
 ```bash
 export MYRIAD_SALT="replace-with-a-long-random-secret"
 ```
+
+Strict mode behavior:
+
+- In `production`, Myriad now requires `MYRIAD_SALT` and will fail startup if it is missing.
+- You can also enforce this in non-production with `MYRIAD_REQUIRE_STRONG_SALT=true`.
 
 ### 3. Run the app
 
@@ -69,6 +79,11 @@ Then open `http://localhost:3000`.
 - `npm run start:web` - start Express server in browser mode
 - `npm run dev` - same as web mode
 - `npm test` - rebuild native module for Node and run tests
+- `npm run test:e2e` - run Playwright end-to-end UI assertions (seed, goals, consent, deletion)
+- `npm run test:all` - run unit/integration + E2E
+- `npm run usability:report` - generate reproducible usability metrics summary
+- `npm run check:ios-project` - verify complete iOS project files are present
+- `npm run test:ios` - run iOS XCTest/UI tests (macOS + complete iOS project required)
 
 ## Project structure
 
@@ -142,6 +157,43 @@ Run the full test suite:
 ```bash
 npm test
 ```
+
+Run end-to-end browser tests:
+
+```bash
+npm run test:e2e
+```
+
+Run full local matrix:
+
+```bash
+npm run test:all
+```
+
+## Usability Validation Artifacts
+
+Reproducible usability assets are in `artifacts/usability/`:
+
+- `results-template.csv` includes task-time + SUS schema
+- `README.md` defines protocol and analysis flow
+
+Generate a summary report:
+
+```bash
+npm run usability:report
+```
+
+## Architecture Alignment Note
+
+The implemented MVP architecture in this repository is local Node.js + Express + SQLite.
+
+See `artifacts/dissertation-architecture-reconciliation.md` for wording to align dissertation claims with the reproducible implementation while preserving future extensibility.
+
+## iOS Build Integrity
+
+To prevent silent iOS breakage, CI includes iOS project presence checks and iOS test execution on macOS runners.
+
+If `MyriadIOS.xcodeproj/project.pbxproj` is missing from source control, `npm run check:ios-project` fails with a clear remediation message.
 
 ## Privacy model
 

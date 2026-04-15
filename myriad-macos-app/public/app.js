@@ -69,3 +69,15 @@ document.getElementById('seedBtn').addEventListener('click', async () => {
   setStatus(`Loaded ${data.seeded} demo events. Opening statistics...`);
   window.location.href = '/stats';
 });
+
+(async function showPrivacyStatus() {
+  try {
+    const response = await call('/api/health');
+    const data = await response.json();
+    if (data && data.privacy && data.privacy.warning) {
+      setStatus(data.privacy.warning);
+    }
+  } catch (_) {
+    // Ignore health check failures on initial render.
+  }
+})();

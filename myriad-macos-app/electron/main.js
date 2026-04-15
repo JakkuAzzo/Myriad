@@ -1,9 +1,10 @@
-const { app, BrowserWindow, dialog, ipcMain } = require('electron');
+const { app, BrowserWindow, dialog, ipcMain, Notification } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { createApp } = require('../src/server');
 
 let serverHandle;
+let mainWindow;
 const PORT = Number(process.env.PORT || 3000);
 
 function waitForServer(url, timeoutMs = 15000) {
@@ -55,7 +56,7 @@ async function createWindow() {
   await startServerInProcess();
   await waitForServer(`http://localhost:${PORT}/api/health`);
 
-  const win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1180,
     height: 840,
     backgroundColor: '#f4efe6',
@@ -66,7 +67,7 @@ async function createWindow() {
     },
   });
 
-  await win.loadURL(`http://localhost:${PORT}`);
+  await mainWindow.loadURL(`http://localhost:${PORT}`);
 }
 
 ipcMain.handle('select-browser-export', async (_event, browser) => {
@@ -93,6 +94,47 @@ ipcMain.handle('select-browser-export', async (_event, browser) => {
     content,
   };
 });
+
+ipcMain.handle('show-nudge-notification', (_event, { title, body, riskLevel }) => {
+  if (!Notification.isSupported()) {
+    return false;
+  }
+
+  const urgency = riskLevel === 'critical' ? 'critical' : riskLevel === 'high' ? 'normal' : 'low';
+  const notification = new Notification({
+    title: title || '⏱️ Behavior Nudge',
+    body: body || 'Check your usage patterns in the dashboard.',
+    urgency,
+    timeoutType: 'default',
+  });
+
+  notification.on('click', () => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('nudge-notification-clicked', {
+        title,
+        riskLevel,
+      });
+      mainWindow.focus();
+    }
+  });
+
+  notification.show();
+  return true;
+});
+
+ipcMain.handle('schedule-nudge-check', (_event, intervalMs = 300000) => {
+  const timer = setInterval(() => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('nudge-check-interval-tick', {});
+    }
+  }, intervalMs);
+
+  return {
+    timerId: timer,
+    intervalMs,
+  };
+});
+
 
 app.whenReady()
   .then(createWindow)

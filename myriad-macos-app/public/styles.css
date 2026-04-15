@@ -204,6 +204,31 @@ button.danger {
   padding-left: 1.2rem;
 }
 
+#platformBreakdown {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+#goalList,
+#interventionList {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.goal-item {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.goal-item button {
+  width: fit-content;
+}
+
+#interventionList ul {
+  margin-top: 0.4rem;
+}
+
 .purpose-list {
   margin: 0;
   padding-left: 1.2rem;

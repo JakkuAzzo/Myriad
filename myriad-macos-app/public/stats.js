@@ -17,6 +17,15 @@ const adminKeyInput = document.getElementById('adminKeyInput');
 const reassignDeviceSelect = document.getElementById('reassignDeviceSelect');
 const reassignUnknownBtn = document.getElementById('reassignUnknownBtn');
 const reassignStatus = document.getElementById('reassignStatus');
+const goalTitleInput = document.getElementById('goalTitleInput');
+const goalCategoryInput = document.getElementById('goalCategoryInput');
+const goalDeviceInput = document.getElementById('goalDeviceInput');
+const goalMaxDailyMinutesInput = document.getElementById('goalMaxDailyMinutesInput');
+const goalPlanInput = document.getElementById('goalPlanInput');
+const saveGoalBtn = document.getElementById('saveGoalBtn');
+const goalStatus = document.getElementById('goalStatus');
+const goalList = document.getElementById('goalList');
+const interventionList = document.getElementById('interventionList');
 
 function getToken() {
   return localStorage.getItem('myriadToken') || '';
@@ -170,6 +179,89 @@ function renderPlatformBreakdown(rows) {
   }
 }
 
+function renderGoals(goals) {
+  goalList.innerHTML = '';
+  if (!goals.length) {
+    const li = document.createElement('li');
+    li.textContent = 'No goals yet. Add one above to start behavior-change tracking.';
+    goalList.appendChild(li);
+    return;
+  }
+
+  for (const goal of goals) {
+    const li = document.createElement('li');
+    li.className = 'goal-item';
+
+    const description = document.createElement('span');
+    const scopeLabel = goal.device === 'all' ? 'all devices' : goal.device;
+    description.textContent = `${goal.title}: keep ${goal.category} under ${goal.maxDailyMinutes} minutes/day on ${scopeLabel}.`;
+
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'danger';
+    removeBtn.textContent = 'Remove';
+    removeBtn.addEventListener('click', async () => {
+      await call(`/api/habits/goals/${goal.id}`, { method: 'DELETE' });
+      goalStatus.textContent = 'Goal removed.';
+      await refreshHabitPlan();
+    });
+
+    li.appendChild(description);
+    li.appendChild(removeBtn);
+
+    if (goal.interventionPlan) {
+      const plan = document.createElement('div');
+      plan.className = 'muted';
+      plan.textContent = `Plan: ${goal.interventionPlan}`;
+      li.appendChild(plan);
+    }
+
+    goalList.appendChild(li);
+  }
+}
+
+function renderInterventions(plan) {
+  interventionList.innerHTML = '';
+  const interventions = Array.isArray(plan.interventions) ? plan.interventions : [];
+
+  if (!interventions.length) {
+    const li = document.createElement('li');
+    li.textContent = 'No interventions yet. Add a goal to generate actions.';
+    interventionList.appendChild(li);
+    return;
+  }
+
+  for (const intervention of interventions) {
+    const li = document.createElement('li');
+    const heading = document.createElement('strong');
+    heading.textContent = `${intervention.goalTitle} (${intervention.status})`;
+    li.appendChild(heading);
+
+    const ul = document.createElement('ul');
+    for (const action of intervention.actions || []) {
+      const actionLi = document.createElement('li');
+      actionLi.textContent = action;
+      ul.appendChild(actionLi);
+    }
+
+    li.appendChild(ul);
+    interventionList.appendChild(li);
+  }
+}
+
+async function refreshHabitPlan() {
+  const days = Number(daysSelect.value);
+  const [goalsResponse, planResponse] = await Promise.all([
+    call('/api/habits/goals'),
+    call(`/api/habits/plan?days=${days}`),
+  ]);
+
+  const goalsPayload = await goalsResponse.json();
+  const planPayload = await planResponse.json();
+
+  renderGoals(Array.isArray(goalsPayload.goals) ? goalsPayload.goals : []);
+  renderInterventions(planPayload);
+}
+
 function summaryPath(days, device) {
   const base = getScope() === 'global' ? '/api/summary/global' : '/api/summary';
   return `${base}?days=${days}&device=${encodeURIComponent(device)}`;
@@ -287,6 +379,8 @@ async function refreshDashboard() {
   const enhancedResponse = await call(enhancedSummaryPath(days, device), { headers });
   const enhanced = await enhancedResponse.json();
   renderEnhancedSummary(enhanced);
+
+  await refreshHabitPlan();
 }
 
 async function syncConsent() {
@@ -352,7 +446,81 @@ reassignUnknownBtn.addEventListener('click', async () => {
   await refreshDashboard();
 });
 
+saveGoalBtn.addEventListener('click', async () => {
+  const title = goalTitleInput.value.trim();
+  const category = goalCategoryInput.value.trim();
+  const device = goalDeviceInput.value;
+  const maxDailyMinutes = Number(goalMaxDailyMinutesInput.value);
+  const interventionPlan = goalPlanInput.value.trim();
+
+  await call('/api/habits/goals', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      title,
+      category,
+      device,
+      maxDailyMinutes,
+      interventionPlan,
+      active: true,
+    }),
+  });
+
+  goalStatus.textContent = 'Goal saved.';
+  goalTitleInput.value = '';
+  goalCategoryInput.value = '';
+  goalPlanInput.value = '';
+  await refreshHabitPlan();
+});
+
+async function checkAndSendNudges() {
+  if (!window.myriadDesktop) {
+    return;
+  }
+
+  try {
+    const planResponse = await call('/api/habits/plan');
+    const plan = await planResponse.json();
+
+    for (const intervention of plan.interventions || []) {
+      const riskLevel = intervention.riskLevel || 'low';
+      if (riskLevel === 'critical' || riskLevel === 'high') {
+        const recentNotif = sessionStorage.getItem(`nudge-${intervention.goalId}`);
+        const now = Date.now();
+
+        if (!recentNotif || parseInt(recentNotif, 10) < now - 600000) {
+          const summary = plan.goalProgress?.find((p) => p.goal.id === intervention.goalId);
+          if (summary) {
+            const title = `⚠️ ${intervention.goalTitle}`;
+            const body =
+              riskLevel === 'critical'
+                ? `Critical risk: ${intervention.actions[0] || 'Reduce usage immediately.'}`
+                : `High risk: ${summary.goal.category} at ${summary.percentToLimit}% of daily limit.`;
+
+            await window.myriadDesktop.showNudgeNotification(title, body, riskLevel);
+            sessionStorage.setItem(`nudge-${intervention.goalId}`, String(now));
+          }
+        }
+      }
+    }
+  } catch (err) {
+    console.error('Nudge check failed:', err.message);
+  }
+}
+
 (async function init() {
   await syncConsent();
   await refreshDashboard();
+
+  if (window.myriadDesktop) {
+    await checkAndSendNudges();
+
+    if (window.myriadDesktop.onNudgeCheckInterval) {
+      window.myriadDesktop.onNudgeCheckInterval(() => {
+        checkAndSendNudges().catch(() => {});
+      });
+    }
+
+    await window.myriadDesktop.scheduleNudgeCheck(300000);
+  }
 })();

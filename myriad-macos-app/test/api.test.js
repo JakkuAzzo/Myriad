@@ -121,6 +121,100 @@ test('whatsapp import and browser history import', async () => {
   assert.doesNotMatch(exported.text, /"alice"|"bob"|"Said"/);
 });
 
+test('telegram import ingests message events', async () => {
+  const token = await registerAndLogin('telegram-importer');
+
+  const telegramPayload = {
+    name: 'Team Chat',
+    messages: [
+      {
+        id: 1,
+        type: 'message',
+        date: '2026-03-10T10:30:00Z',
+        from: 'Alex',
+        text: 'Standup in 10 minutes',
+      },
+      {
+        id: 2,
+        type: 'message',
+        date: '2026-03-10T10:45:00Z',
+        from: 'Jordan',
+        text: 'On my way',
+      },
+    ],
+  };
+
+  const importTelegram = await request(app)
+    .post('/api/import/upload?connector=telegram')
+    .set('Authorization', `Bearer ${token}`)
+    .attach('file', Buffer.from(JSON.stringify(telegramPayload), 'utf8'), 'telegram.json')
+    .expect(201);
+
+  assert.equal(importTelegram.body.connector, 'telegram');
+  assert.equal(importTelegram.body.imported, 2);
+
+  const summary = await request(app)
+    .get('/api/summary?days=90')
+    .set('Authorization', `Bearer ${token}`)
+    .expect(200);
+
+  assert.equal(summary.body.totals.totalEvents, 2);
+  assert.ok(Array.isArray(summary.body.conversationFrequency));
+});
+
+test('habit goals and intervention plan support behavior-change workflows', async () => {
+  const token = await registerAndLogin('habit-user');
+
+  await request(app)
+    .post('/api/events')
+    .set('Authorization', `Bearer ${token}`)
+    .send({
+      source: 'browser',
+      category: 'social',
+      durationMinutes: 120,
+      device: 'phone',
+      identifier: 'habit-1',
+      externalId: 'habit-evt-1',
+    })
+    .expect(201);
+
+  const created = await request(app)
+    .post('/api/habits/goals')
+    .set('Authorization', `Bearer ${token}`)
+    .send({
+      title: 'Reduce social browsing',
+      category: 'social',
+      device: 'phone',
+      maxDailyMinutes: 60,
+      interventionPlan: 'Block social apps after 10pm',
+    })
+    .expect(201);
+
+  assert.equal(created.body.goal.title, 'Reduce social browsing');
+  assert.equal(created.body.goal.category, 'social');
+
+  const goals = await request(app)
+    .get('/api/habits/goals')
+    .set('Authorization', `Bearer ${token}`)
+    .expect(200);
+
+  assert.equal(goals.body.goals.length, 1);
+
+  const plan = await request(app)
+    .get('/api/habits/plan?days=7')
+    .set('Authorization', `Bearer ${token}`)
+    .expect(200);
+
+  assert.ok(Array.isArray(plan.body.goalProgress));
+  assert.ok(Array.isArray(plan.body.interventions));
+  assert.equal(plan.body.goalProgress[0].goal.title, 'Reduce social browsing');
+
+  await request(app)
+    .delete(`/api/habits/goals/${created.body.goal.id}`)
+    .set('Authorization', `Bearer ${token}`)
+    .expect(200);
+});
+
 test('reassign unknown events to selected device', async () => {
   const token = await registerAndLogin('reassigner');
 

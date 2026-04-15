@@ -1,0 +1,84 @@
+name: MyriadIOS
+options:
+  minimumXcodeGenVersion: 2.38.0
+deploymentTarget:
+  iOS: 16.0
+settings:
+  base:
+    SWIFT_VERSION: 5.0
+    CURRENT_PROJECT_VERSION: 1
+    MARKETING_VERSION: 1.0.0
+    CODE_SIGNING_ALLOWED: NO
+    CODE_SIGNING_REQUIRED: NO
+    CODE_SIGN_IDENTITY: ""
+targets:
+  MyriadIOS:
+    type: application
+    platform: iOS
+    sources:
+      - path: MyriadIOS/Sources
+    info:
+      path: MyriadIOS/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.myriad.app
+        PRODUCT_NAME: MyriadIOS
+        INFOPLIST_FILE: MyriadIOS/Info.plist
+        TARGETED_DEVICE_FAMILY: 1,2
+        SUPPORTS_MACCATALYST: NO
+
+  MyriadWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: MyriadWidget/Sources
+    info:
+      path: MyriadWidget/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.myriad.app.widget
+        PRODUCT_NAME: MyriadWidget
+        INFOPLIST_FILE: MyriadWidget/Info.plist
+        SKIP_INSTALL: YES
+        APPLICATION_EXTENSION_API_ONLY: YES
+
+  MyriadIOSTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: MyriadIOSTests
+    info:
+      path: MyriadIOSTests/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.myriad.app.tests
+        INFOPLIST_FILE: MyriadIOSTests/Info.plist
+    dependencies:
+      - target: MyriadIOS
+
+  MyriadIOSUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: MyriadIOSUITests
+    info:
+      path: MyriadIOSUITests/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.myriad.app.uitests
+        INFOPLIST_FILE: MyriadIOSUITests/Info.plist
+    dependencies:
+      - target: MyriadIOS
+
+schemes:
+  MyriadIOS:
+    build:
+      targets:
+        MyriadIOS: all
+        MyriadWidget: all
+    test:
+      targets:
+        - name: MyriadIOSTests
+        - name: MyriadIOSUITests
+    run:
+      config: Debug

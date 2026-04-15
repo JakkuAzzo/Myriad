@@ -1,0 +1,835 @@
+Xcode version: 26.4 (17E192)
+23:13:33.353 xcodebuild[38037:1371155] Beginning test session MyriadIOSTests-0D1C56AA-8276-450B-8A79-A56EE8BE96D9 at 2026-04-15 23:13:33.353 on target <DVTiPhoneSimulator: 0xaa6a59b80> {
+		SimDevice: iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Shutdown)
+} (26.4 (23E244))
+23:13:33.353 xcodebuild[38037:1371155] 	/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
+-project
+/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/MyriadIOS.xcodeproj
+-scheme
+MyriadIOS
+-destination
+platform=iOS Simulator,id=C13D1910-C447-4A63-A596-C966607EF83F
+-derivedDataPath
+/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData
+test
+23:13:33.354 xcodebuild[38037:1371155] Test standard output and standard error is at /Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Logs/Test/Test-MyriadIOS-2026.04.15_23-13-19-+0100.xcresult/Staging/1_Test/Diagnostics/MyriadIOSTests-001D4B4B-6CF8-4FBA-A7A2-955FC5D523E7-Configuration-Test Scheme Action-Iteration-1/MyriadIOSTests-33119151-84AE-4A37-A719-2C9CC52C96CD/StandardOutputAndStandardError.txt
+23:13:33.709 xcodebuild[38037:1371155] C13D1910-C447-4A63-A596-C966607EF83F: Received sim device notification: {
+    notification = "availableDevices_changed";
+}
+23:13:33.709 xcodebuild[38037:1371155] C13D1910-C447-4A63-A596-C966607EF83F: Received sim device notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.710 xcodebuild[38037:1371156] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.724 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.724 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.724 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.724 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.724 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.724 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.724 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.725 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.726 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.726 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.726 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.726 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.726 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.726 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.726 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:33.726 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booting)";
+    "last_booted_at" = "2026-04-15 22:13:33 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+23:13:34.690 xcodebuild[38037:1371155] C13D1910-C447-4A63-A596-C966607EF83F: Received sim device notification: {
+    notification = "availableDevices_changed";
+}
+23:13:34.690 xcodebuild[38037:1371155] C13D1910-C447-4A63-A596-C966607EF83F: Received sim device notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.690 xcodebuild[38037:1371207] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.690 xcodebuild[38037:1371214] 📱<DVTiPhoneSimulator (0xaa6a59b80), iPhone 17 Pro, unknown class, 26.4 (23E244), C13D1910-C447-4A63-A596-C966607EF83F> claim LaunchSessionClaim_0xaa5c79980 on simulator was issued, 2 claims exist.
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.700 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.701 xcodebuild[38037:1371155] /Users/nathanbrown-bennett/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (C13D1910-C447-4A63-A596-C966607EF83F, iOS 26.4, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+23:13:34.704 xcodebuild[38037:1371155] Setting up test runner session
+23:13:34.704 xcodebuild[38037:1371216] Sim iPhone 17 Pro: Unregistering for sim device notification with token 5
+23:13:34.704 xcodebuild[38037:1371216] Calling -[SimDevice getenv:error:] for TESTMANAGERD_SIM_SOCK
+23:13:34.705 xcodebuild[38037:1371155] Registering/updating daemon-based crash report observer for process names (
+    xctest,
+    debugserver,
+    FrontBoard,
+    assertiond,
+    runningboardd,
+    SpringBoard,
+    testmanagerd,
+    backboardd,
+    DTServiceHub,
+    MyriadIOS,
+    MyriadIOSTests
+)
+23:13:34.765 xcodebuild[38037:1371216] Sim iPhone 17 Pro has testmanagerd socket at /private/var/tmp/com.apple.launchd.omr1CHHeLZ/com.apple.testmanagerd.unix-domain.socket
+23:13:34.765 xcodebuild[38037:1371216] Validating test connection socket path (/private/var/tmp/com.apple.launchd.omr1CHHeLZ/com.apple.testmanagerd.unix-domain.socket)
+23:13:34.765 xcodebuild[38037:1371216] Constructing transport for test connection socket
+23:13:34.765 xcodebuild[38037:1371216] Connected socket 36 to testmanagerd for Sim iPhone 17 Pro
+23:13:34.767 xcodebuild[38037:1371216] Received connection for test runner session
+23:13:34.767 xcodebuild[38037:1371216] Listening for proxy connection request from the test bundle
+23:13:34.767 xcodebuild[38037:1371155] Test runner session acquired connection.
+23:13:34.768 xcodebuild[38037:1371216] Initiating session with identifier: 0D1C56AA-8276-450B-8A79-A56EE8BE96D9
+23:13:36.814 xcodebuild[38037:1371207] Got reply to session initiation request with identifier 0D1C56AA-8276-450B-8A79-A56EE8BE96D9 (error: (null))
+23:13:37.649 xcodebuild[38037:1371155] Finished requesting crash reports. Continuing with testing.
+23:13:37.735 xcodebuild[38037:1371155] Launch session started.
+23:13:37.748 xcodebuild[38037:1371156] 📱<DVTiPhoneSimulator (0xaa6a59b80), iPhone 17 Pro, unknown class, 26.4 (23E244), C13D1910-C447-4A63-A596-C966607EF83F> claim LaunchSessionClaim_0xaa5c79980 on simulator was issued, 2 claims exist.
+23:13:37.779 xcodebuild[38037:1371157] 📱<DVTiPhoneSimulator (0xaa6a59b80), iPhone 17 Pro, unknown class, 26.4 (23E244), C13D1910-C447-4A63-A596-C966607EF83F> claim LaunchSessionClaim_0xaa5c79980 on simulator was issued, 2 claims exist.
+23:13:37.779 xcodebuild[38037:1371157] C13D1910-C447-4A63-A596-C966607EF83F: Registered for sim device notification, got token 8
+23:13:37.780 xcodebuild[38037:1371156] C13D1910-C447-4A63-A596-C966607EF83F: Unregistering for sim device notification with token 8
+23:13:37.845 xcodebuild[38037:1371157] C13D1910-C447-4A63-A596-C966607EF83F: Installing app at path: /Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Products/Debug-iphonesimulator/MyriadIOS.app and options: {
+    SkipWatchAppInstall = 1;
+}
+23:14:05.183 xcodebuild[38037:1371157] C13D1910-C447-4A63-A596-C966607EF83F: Failed to install app at path: /Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Products/Debug-iphonesimulator/MyriadIOS.app and options: {
+    SkipWatchAppInstall = 1;
+} (error = Error Domain=IXErrorDomain Code=2 "Simulator device failed to install the application." UserInfo={NSLocalizedFailureReason=Invalid placeholder attributes., NSLocalizedDescription=Simulator device failed to install the application., SimCallingSelector=installApplication:withOptions:error:, FunctionName=+[IXPlaceholder _placeholderForBundle:client:withParent:installType:metadata:placeholderType:mayBeDeltaPackage:isFromSerializedPlaceholder:location:error:], SourceFileLine=1019, NSUnderlyingError=0xaa3734d20 {Error Domain=IXErrorDomain Code=2 "Failed to create app extension placeholder for /Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Products/Debug-iphonesimulator/MyriadIOS.app/PlugIns/MyriadWidget.appex" UserInfo={NSUnderlyingError=0xaa3734ea0 {Error Domain=IXErrorDomain Code=2 "Failed to set placeholder attributes com.myriad.app.widget" UserInfo={NSUnderlyingError=0xaa3735110 {Error Domain=IXErrorDomain Code=17 "extensionDictionary must be set in placeholder attributes for an app extension placeholder" UserInfo=0xaa6b3cb00 (not displayed)}, NSLocalizedFailureReason=Failed to create promise., FunctionName=+[IXPlaceholder _placeholderForBundle:client:withParent:installType:metadata:placeholderType:mayBeDeltaPackage:isFromSerializedPlaceholder:location:error:], SourceFileLine=859, NSLocalizedDescription=Failed to set placeholder attributes com.myriad.app.widget}}, NSLocalizedFailureReason=Failed to create promise., FunctionName=+[IXPlaceholder _placeholderForBundle:client:withParent:installType:metadata:placeholderType:mayBeDeltaPackage:isFromSerializedPlaceholder:location:error:], SourceFileLine=1019, NSLocalizedDescription=Failed to create app extension placeholder for /Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Products/Debug-iphonesimulator/MyriadIOS.app/PlugIns/MyriadWidget.appex}}})
+23:14:05.224 xcodebuild[38037:1371155] 📱<DVTiPhoneSimulator (0xaa6a59b80), iPhone 17 Pro, unknown class, 26.4 (23E244), C13D1910-C447-4A63-A596-C966607EF83F> claim LaunchSessionClaim_0xaa5c79980 on simulator was relinquished, 1 claims remain.
+23:14:05.225 xcodebuild[38037:1371155] 📱<DVTiPhoneSimulator (0xaa6a59b80), iPhone 17 Pro, unknown class, 26.4 (23E244), C13D1910-C447-4A63-A596-C966607EF83F> claim LaunchSessionClaim_0xaa5c79980 on simulator was relinquished, 1 claims remain.
+23:14:05.225 xcodebuild[38037:1371155] 📱<DVTiPhoneSimulator (0xaa6a59b80), iPhone 17 Pro, unknown class, 26.4 (23E244), C13D1910-C447-4A63-A596-C966607EF83F> claim LaunchSessionClaim_0xaa5c79980 on simulator was relinquished, 1 claims remain.
+23:14:05.227 xcodebuild[38037:1371155] Launch session expired.
+23:14:05.227 xcodebuild[38037:1372765] XCTHTestOperationStateMachine: Transitioning from state Initial to PendingFinalization
+23:14:05.229 xcodebuild[38037:1371155] Test operation failure: Error Domain=XCTHTestOperationCoordinatorErrorDomain Code=4 "Failed to install or launch the test runner" UserInfo={NSLocalizedDescription=Failed to install or launch the test runner, NSUnderlyingError=0xaa37349f0 {Error Domain=IXErrorDomain Code=2 "Simulator device failed to install the application." UserInfo={DVTErrorCreationDateKey=2026-04-15 22:14:05 +0000, SimCallingSelector=installApplication:withOptions:error:, FunctionName=+[IXPlaceholder _placeholderForBundle:client:withParent:installType:metadata:placeholderType:mayBeDeltaPackage:isFromSerializedPlaceholder:location:error:], DVTIssueReportingFunctionalityKey=1, DVTAnalyticsEventNameKey=com.apple.dt.IDERunOperationWorkerFinished, NSLocalizedFailureReason=Invalid placeholder attributes., NSLocalizedDescription=Simulator device failed to install the application., DVTAnalyticsEventDictionaryKey={
+    "device_identifier" = "C13D1910-C447-4A63-A596-C966607EF83F";
+    "device_model" = "iPhone18,1";
+    "device_osBuild" = "26.4 (23E244)";
+    "device_osBuild_monotonic" = 2304024400;
+    "device_os_variant" = 1;
+    "device_platform" = "com.apple.platform.iphonesimulator";
+    "device_platform_family" = 2;
+    "device_reality" = 2;
+    "device_thinningType" = "iPhone18,1";
+    "device_transport" = 4;
+    "launchSession_schemeCommand" = Test;
+    "launchSession_schemeCommand_enum" = 2;
+    "launchSession_targetArch" = arm64;
+    "launchSession_targetArch_enum" = 6;
+    "operation_duration_ms" = 27449;
+    "operation_errorCode" = 2;
+    "operation_errorDomain" = IXErrorDomain;
+    "operation_errorWorker" = IDELaunchiPhoneSimulatorLauncher;
+    "operation_error_reportable" = 1;
+    "operation_name" = IDERunOperationWorkerGroup;
+    "param_consoleMode" = 0;
+    "param_debugger_attachToExtensions" = 0;
+    "param_debugger_attachToXPC" = 0;
+    "param_debugger_type" = 1;
+    "param_destination_isProxy" = 0;
+    "param_destination_platform" = "com.apple.platform.iphonesimulator";
+    "param_diag_MTE_enable" = 0;
+    "param_diag_MainThreadChecker_stopOnIssue" = 0;
+    "param_diag_MallocStackLogging_enableDuringAttach" = 0;
+    "param_diag_MallocStackLogging_enableForXPC" = 0;
+    "param_diag_allowLocationSimulation" = 1;
+    "param_diag_checker_mtc_enable" = 0;
+    "param_diag_checker_tpc_enable" = 1;
+    "param_diag_gpu_frameCapture_enable" = 3;
+    "param_diag_gpu_shaderValidation_enable" = 0;
+    "param_diag_gpu_validation_enable" = 1;
+    "param_diag_guardMalloc_enable" = 0;
+    "param_diag_memoryGraphOnResourceException" = 0;
+    "param_diag_queueDebugging_enable" = 0;
+    "param_diag_runtimeProfile_generate" = 0;
+    "param_diag_sanitizer_asan_enable" = 0;
+    "param_diag_sanitizer_tsan_enable" = 0;
+    "param_diag_sanitizer_tsan_stopOnIssue" = 0;
+    "param_diag_sanitizer_ubsan_enable" = 0;
+    "param_diag_sanitizer_ubsan_stopOnIssue" = 0;
+    "param_diag_showNonLocalizedStrings" = 0;
+    "param_diag_viewDebugging_enabled" = 0;
+    "param_diag_viewDebugging_insertDylibOnLaunch" = 0;
+    "param_install_style" = 2;
+    "param_launcher_UID" = 2;
+    "param_launcher_allowDeviceSensorReplayData" = 0;
+    "param_launcher_kind" = 0;
+    "param_launcher_style" = 0;
+    "param_launcher_substyle" = 0;
+    "param_runnable_appExtensionHostRunMode" = 0;
+    "param_runnable_productType" = "com.apple.product-type.application";
+    "param_testing_launchedForTesting" = 1;
+    "param_testing_suppressSimulatorApp" = 1;
+    "param_testing_usingCLI" = 0;
+    "sdk_canonicalName" = "iphonesimulator26.4";
+    "sdk_osVersion" = "26.4";
+    "sdk_platformID" = 7;
+    "sdk_variant" = iphonesimulator;
+    "sdk_version_monotonic" = 2304023700;
+}, SourceFileLine=1019, NSUnderlyingError=0xaa3734d20 {Error Domain=IXErrorDomain Code=2 "Failed to create app extension placeholder for /Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Products/Debug-iphonesimulator/MyriadIOS.app/PlugIns/MyriadWidget.appex" UserInfo={NSUnderlyingError=0xaa3734ea0 {Error Domain=IXErrorDomain Code=2 "Failed to set placeholder attributes com.myriad.app.widget" UserInfo=0xaa6b3d000 (not displayed)}, NSLocalizedFailureReason=Failed to create promise., FunctionName=+[IXPlaceholder _placeholderForBundle:client:withParent:installType:metadata:placeholderType:mayBeDeltaPackage:isFromSerializedPlaceholder:location:error:], SourceFileLine=1019, NSLocalizedDescription=Failed to create app extension placeholder for /Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Products/Debug-iphonesimulator/MyriadIOS.app/PlugIns/MyriadWidget.appex}}, IDERunOperationFailingWorker=IDELaunchiPhoneSimulatorLauncher}}}
+23:14:05.229 xcodebuild[38037:1371155] _finishWithError:Error Domain=XCTHTestOperationCoordinatorErrorDomain Code=4 "Failed to install or launch the test runner" UserInfo={NSLocalizedDescription=Failed to install or launch the test runner, NSUnderlyingError=0xaa37349f0 {Error Domain=IXErrorDomain Code=2 "Simulator device failed to install the application." UserInfo={DVTErrorCreationDateKey=2026-04-15 22:14:05 +0000, SimCallingSelector=installApplication:withOptions:error:, FunctionName=+[IXPlaceholder _placeholderForBundle:client:withParent:installType:metadata:placeholderType:mayBeDeltaPackage:isFromSerializedPlaceholder:location:error:], DVTIssueReportingFunctionalityKey=1, DVTAnalyticsEventNameKey=com.apple.dt.IDERunOperationWorkerFinished, NSLocalizedFailureReason=Invalid placeholder attributes., NSLocalizedDescription=Simulator device failed to install the application., DVTAnalyticsEventDictionaryKey={
+    "device_identifier" = "C13D1910-C447-4A63-A596-C966607EF83F";
+    "device_model" = "iPhone18,1";
+    "device_osBuild" = "26.4 (23E244)";
+    "device_osBuild_monotonic" = 2304024400;
+    "device_os_variant" = 1;
+    "device_platform" = "com.apple.platform.iphonesimulator";
+    "device_platform_family" = 2;
+    "device_reality" = 2;
+    "device_thinningType" = "iPhone18,1";
+    "device_transport" = 4;
+    "launchSession_schemeCommand" = Test;
+    "launchSession_schemeCommand_enum" = 2;
+    "launchSession_targetArch" = arm64;
+    "launchSession_targetArch_enum" = 6;
+    "operation_duration_ms" = 27449;
+    "operation_errorCode" = 2;
+    "operation_errorDomain" = IXErrorDomain;
+    "operation_errorWorker" = IDELaunchiPhoneSimulatorLauncher;
+    "operation_error_reportable" = 1;
+    "operation_name" = IDERunOperationWorkerGroup;
+    "param_consoleMode" = 0;
+    "param_debugger_attachToExtensions" = 0;
+    "param_debugger_attachToXPC" = 0;
+    "param_debugger_type" = 1;
+    "param_destination_isProxy" = 0;
+    "param_destination_platform" = "com.apple.platform.iphonesimulator";
+    "param_diag_MTE_enable" = 0;
+    "param_diag_MainThreadChecker_stopOnIssue" = 0;
+    "param_diag_MallocStackLogging_enableDuringAttach" = 0;
+    "param_diag_MallocStackLogging_enableForXPC" = 0;
+    "param_diag_allowLocationSimulation" = 1;
+    "param_diag_checker_mtc_enable" = 0;
+    "param_diag_checker_tpc_enable" = 1;
+    "param_diag_gpu_frameCapture_enable" = 3;
+    "param_diag_gpu_shaderValidation_enable" = 0;
+    "param_diag_gpu_validation_enable" = 1;
+    "param_diag_guardMalloc_enable" = 0;
+    "param_diag_memoryGraphOnResourceException" = 0;
+    "param_diag_queueDebugging_enable" = 0;
+    "param_diag_runtimeProfile_generate" = 0;
+    "param_diag_sanitizer_asan_enable" = 0;
+    "param_diag_sanitizer_tsan_enable" = 0;
+    "param_diag_sanitizer_tsan_stopOnIssue" = 0;
+    "param_diag_sanitizer_ubsan_enable" = 0;
+    "param_diag_sanitizer_ubsan_stopOnIssue" = 0;
+    "param_diag_showNonLocalizedStrings" = 0;
+    "param_diag_viewDebugging_enabled" = 0;
+    "param_diag_viewDebugging_insertDylibOnLaunch" = 0;
+    "param_install_style" = 2;
+    "param_launcher_UID" = 2;
+    "param_launcher_allowDeviceSensorReplayData" = 0;
+    "param_launcher_kind" = 0;
+    "param_launcher_style" = 0;
+    "param_launcher_substyle" = 0;
+    "param_runnable_appExtensionHostRunMode" = 0;
+    "param_runnable_productType" = "com.apple.product-type.application";
+    "param_testing_launchedForTesting" = 1;
+    "param_testing_suppressSimulatorApp" = 1;
+    "param_testing_usingCLI" = 0;
+    "sdk_canonicalName" = "iphonesimulator26.4";
+    "sdk_osVersion" = "26.4";
+    "sdk_platformID" = 7;
+    "sdk_variant" = iphonesimulator;
+    "sdk_version_monotonic" = 2304023700;
+}, SourceFileLine=1019, NSUnderlyingError=0xaa3734d20 {Error Domain=IXErrorDomain Code=2 "Failed to create app extension placeholder for /Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Products/Debug-iphonesimulator/MyriadIOS.app/PlugIns/MyriadWidget.appex" UserInfo={NSUnderlyingError=0xaa3734ea0 {Error Domain=IXErrorDomain Code=2 "Failed to set placeholder attributes com.myriad.app.widget" UserInfo=0xaa6b3d000 (not displayed)}, NSLocalizedFailureReason=Failed to create promise., FunctionName=+[IXPlaceholder _placeholderForBundle:client:withParent:installType:metadata:placeholderType:mayBeDeltaPackage:isFromSerializedPlaceholder:location:error:], SourceFileLine=1019, NSLocalizedDescription=Failed to create app extension placeholder for /Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Products/Debug-iphonesimulator/MyriadIOS.app/PlugIns/MyriadWidget.appex}}, IDERunOperationFailingWorker=IDELaunchiPhoneSimulatorLauncher}}}
+23:14:05.230 xcodebuild[38037:1371155] Current state: testRunnerLaunchSessionHasFinishedReceivingData: NO, delegateBlockQueue.count: 0
+23:14:05.230 xcodebuild[38037:1371155] <XCTHTestOperationCoordinator: 0xaa5c79c80>: _considerFlushingDelegateBlockQueue - nothing to flush

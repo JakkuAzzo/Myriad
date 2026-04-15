@@ -1,0 +1,8 @@
+Target dependency graph (4 targets)
+Target 'MyriadIOSUITests' in project 'MyriadIOS'
+➜ Explicit dependency on target 'MyriadIOS' in project 'MyriadIOS'
+Target 'MyriadIOSTests' in project 'MyriadIOS'
+➜ Explicit dependency on target 'MyriadIOS' in project 'MyriadIOS'
+Target 'MyriadIOS' in project 'MyriadIOS'
+➜ Explicit dependency on target 'MyriadWidget' in project 'MyriadIOS'
+Target 'MyriadWidget' in project 'MyriadIOS' (no dependencies)

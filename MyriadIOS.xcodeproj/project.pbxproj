@@ -1,0 +1,585 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		45749C73C9BD2ABE34DE92A8 /* MyriadIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FB12F196381CF57F9BCADF /* MyriadIOSTests.swift */; };
+		A0347146F442C3E3EFF424B5 /* MyriadIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4518BA669DDB287289D38ECD /* MyriadIOSUITests.swift */; };
+		C18F6FB2BA3CE3D955B7E5D4 /* MyriadWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2E026A24D1D4B64282AB7 /* MyriadWidget.swift */; };
+		C7864342653A9A8ED691C473 /* MyriadIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3417513E4E3C12EACDA7CEAA /* MyriadIOSApp.swift */; };
+		CFFA2D2A9B019472AD41C295 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149CFBEECB6F4DAC6C34A95A /* ContentView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0595F1FE4A52B7BB1470F136 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F594396294045CBFED06BB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B5BA80AB75962F4F8F15F00E;
+			remoteInfo = MyriadIOS;
+		};
+		3A3AEF176D05919804C129A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F594396294045CBFED06BB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B5BA80AB75962F4F8F15F00E;
+			remoteInfo = MyriadIOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		149CFBEECB6F4DAC6C34A95A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		17239756C397C6EEA288BC0B /* MyriadIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MyriadIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3417513E4E3C12EACDA7CEAA /* MyriadIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyriadIOSApp.swift; sourceTree = "<group>"; };
+		3B719145DD6C2FF3EF392F92 /* MyriadWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MyriadWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4518BA669DDB287289D38ECD /* MyriadIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyriadIOSUITests.swift; sourceTree = "<group>"; };
+		5D8EAA5AF653C55B36A109F7 /* MyriadIOSUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MyriadIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7567F675D7AEBE59D5EDD6B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AC26A8B3C6BAA0FB781938E4 /* MyriadIOSTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MyriadIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2FB12F196381CF57F9BCADF /* MyriadIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyriadIOSTests.swift; sourceTree = "<group>"; };
+		CBD2E026A24D1D4B64282AB7 /* MyriadWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyriadWidget.swift; sourceTree = "<group>"; };
+		CF6339022247FE9E80BF1F92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		6205482163F5D498C9F6F8D4 = {
+			isa = PBXGroup;
+			children = (
+				B8CFCCC23098C3EF57644649 /* MyriadIOSTests */,
+				AEECFA4CA58609D4CEB5E934 /* MyriadIOSUITests */,
+				9D4587C235399430DF0570C8 /* Sources */,
+				83F98F15251483C358B5209E /* Sources */,
+				D146D67D3898C704EF7C6BD0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		83F98F15251483C358B5209E /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				CBD2E026A24D1D4B64282AB7 /* MyriadWidget.swift */,
+			);
+			name = Sources;
+			path = MyriadWidget/Sources;
+			sourceTree = "<group>";
+		};
+		9D4587C235399430DF0570C8 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				149CFBEECB6F4DAC6C34A95A /* ContentView.swift */,
+				3417513E4E3C12EACDA7CEAA /* MyriadIOSApp.swift */,
+			);
+			name = Sources;
+			path = MyriadIOS/Sources;
+			sourceTree = "<group>";
+		};
+		AEECFA4CA58609D4CEB5E934 /* MyriadIOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CF6339022247FE9E80BF1F92 /* Info.plist */,
+				4518BA669DDB287289D38ECD /* MyriadIOSUITests.swift */,
+			);
+			path = MyriadIOSUITests;
+			sourceTree = "<group>";
+		};
+		B8CFCCC23098C3EF57644649 /* MyriadIOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				7567F675D7AEBE59D5EDD6B2 /* Info.plist */,
+				B2FB12F196381CF57F9BCADF /* MyriadIOSTests.swift */,
+			);
+			path = MyriadIOSTests;
+			sourceTree = "<group>";
+		};
+		D146D67D3898C704EF7C6BD0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				17239756C397C6EEA288BC0B /* MyriadIOS.app */,
+				AC26A8B3C6BAA0FB781938E4 /* MyriadIOSTests.xctest */,
+				5D8EAA5AF653C55B36A109F7 /* MyriadIOSUITests.xctest */,
+				3B719145DD6C2FF3EF392F92 /* MyriadWidget.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1094EC8DECE7F6AB53C83B84 /* MyriadIOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C942CCEA658B1B373651DED1 /* Build configuration list for PBXNativeTarget "MyriadIOSUITests" */;
+			buildPhases = (
+				32FBE96B18B6B9835A6A4FDB /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2F6A6C7DAA815FE188C94D52 /* PBXTargetDependency */,
+			);
+			name = MyriadIOSUITests;
+			packageProductDependencies = (
+			);
+			productName = MyriadIOSUITests;
+			productReference = 5D8EAA5AF653C55B36A109F7 /* MyriadIOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		55414AE6E56C620E07DCBA92 /* MyriadIOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B2E2B73D9775472122A0D526 /* Build configuration list for PBXNativeTarget "MyriadIOSTests" */;
+			buildPhases = (
+				C1554F511DB7087A651C9950 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				748EA86F5750526711E3A6B1 /* PBXTargetDependency */,
+			);
+			name = MyriadIOSTests;
+			packageProductDependencies = (
+			);
+			productName = MyriadIOSTests;
+			productReference = AC26A8B3C6BAA0FB781938E4 /* MyriadIOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		61CD1EDDD88B1AFB87572778 /* MyriadWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44668E2FE1CE501DEA282B1A /* Build configuration list for PBXNativeTarget "MyriadWidget" */;
+			buildPhases = (
+				5D9F1F598FC8582AE87EE8DE /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyriadWidget;
+			packageProductDependencies = (
+			);
+			productName = MyriadWidget;
+			productReference = 3B719145DD6C2FF3EF392F92 /* MyriadWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		B5BA80AB75962F4F8F15F00E /* MyriadIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 174956B907E1EDDDC553833F /* Build configuration list for PBXNativeTarget "MyriadIOS" */;
+			buildPhases = (
+				F90CB1EE6789EBC2A5D54DAA /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyriadIOS;
+			packageProductDependencies = (
+			);
+			productName = MyriadIOS;
+			productReference = 17239756C397C6EEA288BC0B /* MyriadIOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3F594396294045CBFED06BB2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					1094EC8DECE7F6AB53C83B84 = {
+						TestTargetID = B5BA80AB75962F4F8F15F00E;
+					};
+				};
+			};
+			buildConfigurationList = 7B79E659313EC17F9F33C037 /* Build configuration list for PBXProject "MyriadIOS" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 6205482163F5D498C9F6F8D4;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = D146D67D3898C704EF7C6BD0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B5BA80AB75962F4F8F15F00E /* MyriadIOS */,
+				55414AE6E56C620E07DCBA92 /* MyriadIOSTests */,
+				1094EC8DECE7F6AB53C83B84 /* MyriadIOSUITests */,
+				61CD1EDDD88B1AFB87572778 /* MyriadWidget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		32FBE96B18B6B9835A6A4FDB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0347146F442C3E3EFF424B5 /* MyriadIOSUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D9F1F598FC8582AE87EE8DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C18F6FB2BA3CE3D955B7E5D4 /* MyriadWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C1554F511DB7087A651C9950 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45749C73C9BD2ABE34DE92A8 /* MyriadIOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F90CB1EE6789EBC2A5D54DAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFFA2D2A9B019472AD41C295 /* ContentView.swift in Sources */,
+				C7864342653A9A8ED691C473 /* MyriadIOSApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2F6A6C7DAA815FE188C94D52 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B5BA80AB75962F4F8F15F00E /* MyriadIOS */;
+			targetProxy = 0595F1FE4A52B7BB1470F136 /* PBXContainerItemProxy */;
+		};
+		748EA86F5750526711E3A6B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B5BA80AB75962F4F8F15F00E /* MyriadIOS */;
+			targetProxy = 3A3AEF176D05919804C129A2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0798753E7E6183F6D726DA36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MyriadIOSUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.myriad.app.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MyriadIOS;
+			};
+			name = Debug;
+		};
+		13F7F9B3F9E8863CD838B8C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MyriadIOSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.myriad.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyriadIOS.app/MyriadIOS";
+			};
+			name = Release;
+		};
+		3C9B703A5D704AFC00C7EB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = MyriadIOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.myriad.app;
+				PRODUCT_NAME = MyriadIOS;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		50458DC2050874ADC25B335B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MyriadIOSUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.myriad.app.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MyriadIOS;
+			};
+			name = Release;
+		};
+		55883EBF88CCF4246E41332A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				INFOPLIST_FILE = MyriadWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.myriad.app.widget;
+				PRODUCT_NAME = MyriadWidget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		58BBFDBAF06CB37B6E992504 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MyriadIOSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.myriad.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyriadIOS.app/MyriadIOS";
+			};
+			name = Debug;
+		};
+		7B6E140ED5103640E1E8224C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = MyriadIOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.myriad.app;
+				PRODUCT_NAME = MyriadIOS;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		98CA79D471C51501633888B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				INFOPLIST_FILE = MyriadWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.myriad.app.widget;
+				PRODUCT_NAME = MyriadWidget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CD9BA9D7CC739D162E95E110 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D8842C5AFBBE857E54482804 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		174956B907E1EDDDC553833F /* Build configuration list for PBXNativeTarget "MyriadIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B6E140ED5103640E1E8224C /* Debug */,
+				3C9B703A5D704AFC00C7EB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		44668E2FE1CE501DEA282B1A /* Build configuration list for PBXNativeTarget "MyriadWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98CA79D471C51501633888B8 /* Debug */,
+				55883EBF88CCF4246E41332A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7B79E659313EC17F9F33C037 /* Build configuration list for PBXProject "MyriadIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD9BA9D7CC739D162E95E110 /* Debug */,
+				D8842C5AFBBE857E54482804 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B2E2B73D9775472122A0D526 /* Build configuration list for PBXNativeTarget "MyriadIOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58BBFDBAF06CB37B6E992504 /* Debug */,
+				13F7F9B3F9E8863CD838B8C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C942CCEA658B1B373651DED1 /* Build configuration list for PBXNativeTarget "MyriadIOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0798753E7E6183F6D726DA36 /* Debug */,
+				50458DC2050874ADC25B335B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3F594396294045CBFED06BB2 /* Project object */;
+}

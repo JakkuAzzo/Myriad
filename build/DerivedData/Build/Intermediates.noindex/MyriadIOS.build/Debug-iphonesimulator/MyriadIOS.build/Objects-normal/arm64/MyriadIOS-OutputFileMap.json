@@ -1,0 +1,29 @@
+{
+  "" : {
+    "diagnostics" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/MyriadIOS-primary.dia",
+    "emit-module-dependencies" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/MyriadIOS-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/MyriadIOS-primary-emit-module.dia",
+    "pch" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/MyriadIOS-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/MyriadIOS-primary.swiftdeps"
+  },
+  "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/MyriadIOS/Sources/ContentView.swift" : {
+    "const-values" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/MyriadIOS/Sources/MyriadIOSApp.swift" : {
+    "const-values" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/MyriadIOSApp.swiftconstvalues",
+    "dependencies" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/MyriadIOSApp.d",
+    "diagnostics" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/MyriadIOSApp.dia",
+    "index-unit-output-path" : "/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/MyriadIOSApp.o",
+    "llvm-bc" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/MyriadIOSApp.bc",
+    "object" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/MyriadIOSApp.o",
+    "swift-dependencies" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/MyriadIOSApp.swiftdeps",
+    "swiftmodule" : "/Users/nathanbrown-bennett/Said Osman/Myriad_iOS_XCODE/build/DerivedData/Build/Intermediates.noindex/MyriadIOS.build/Debug-iphonesimulator/MyriadIOS.build/Objects-normal/arm64/MyriadIOSApp~partial.swiftmodule"
+  }
+}

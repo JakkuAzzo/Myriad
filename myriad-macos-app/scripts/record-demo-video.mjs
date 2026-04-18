@@ -124,6 +124,20 @@ async function run() {
     await page.locator('#reassignUnknownBtn').click();
     await page.waitForTimeout(1200);
 
+    await page.locator('#goalTitleInput').fill('Reduce distraction before bedtime');
+    await page.locator('#goalCategoryInput').fill('social');
+    await page.locator('#goalDeviceInput').selectOption('phone');
+    await page.locator('#goalMaxDailyMinutesInput').fill('45');
+    await page.locator('#goalPlanInput').fill('Enable app limits after 9:30pm and move phone away from bed.');
+    await page.locator('#saveGoalBtn').click();
+    await page.waitForTimeout(1300);
+
+    await page.locator('#attainmentGoalInput').fill('Finish dissertation chapter draft with fewer phone interruptions');
+    await page.locator('#attainmentDaysInput').fill('30');
+    await page.locator('#attainmentDeviceInput').selectOption('all');
+    await page.locator('#generatePlanBtn').click();
+    await page.waitForTimeout(1800);
+
     await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
     await page.waitForTimeout(900);
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'smooth' }));

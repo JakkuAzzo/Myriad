@@ -142,6 +142,121 @@ function sanitizeEvent(raw) {
   };
 }
 
+function clampNumber(value, min, max, fallback) {
+  if (!Number.isFinite(value)) {
+    return fallback;
+  }
+  return Math.max(min, Math.min(max, value));
+}
+
+function sanitizeGoalAttainmentInput(raw = {}) {
+  const goal = typeof raw.goal === 'string' ? raw.goal.trim().slice(0, 240) : '';
+  const targetDays = clampNumber(Number(raw.targetDays), 7, 180, 30);
+  const targetDevice = typeof raw.targetDevice === 'string' && raw.targetDevice.trim()
+    ? raw.targetDevice.trim().slice(0, 40)
+    : 'all';
+
+  if (!goal) {
+    return null;
+  }
+
+  return {
+    goal,
+    targetDays,
+    targetDevice,
+  };
+}
+
+function buildGoalAttainmentPlan(summary, habitPlan, input) {
+  const topCategories = Array.isArray(summary.categoryUsage) ? summary.categoryUsage : [];
+  const topDevices = Array.isArray(summary.deviceBreakdown) ? summary.deviceBreakdown : [];
+  const riskRows = Array.isArray(habitPlan.interventions) ? habitPlan.interventions : [];
+  const topCategory = topCategories[0];
+  const constrainedDevice = input.targetDevice && input.targetDevice !== 'all'
+    ? input.targetDevice
+    : (topDevices[0] ? topDevices[0].device : 'all devices');
+
+  const milestones = [
+    {
+      week: 1,
+      title: 'Baseline and Friction Setup',
+      actions: [
+        `Capture a baseline for \"${input.goal}\" across ${input.targetDevice === 'all' ? 'all devices' : input.targetDevice}.`,
+        `Add one friction control on ${constrainedDevice} (time limit, website blocker, or app lock).`,
+        topCategory
+          ? `Start with ${topCategory.category}: this is currently your highest time category.`
+          : 'Start with your highest-friction category first.',
+      ],
+    },
+    {
+      week: 2,
+      title: 'Behavior Replacement',
+      actions: [
+        'Replace one high-risk session each day with a planned alternative task.',
+        'Use short implementation intentions: "If trigger X happens, I do Y for 10 minutes."',
+        'Track completion daily and keep the replacement realistic, not perfect.',
+      ],
+    },
+    {
+      week: 3,
+      title: 'Cross-Device Reinforcement',
+      actions: [
+        'Mirror your controls on secondary devices to avoid habit migration.',
+        'Adjust limits only after 4+ days of stable adherence.',
+        'Review where relapses happen by hour and by device, then tighten that hotspot.',
+      ],
+    },
+    {
+      week: 4,
+      title: 'Sustain and Iterate',
+      actions: [
+        'Keep the best interventions and remove ones you never follow.',
+        'Schedule a weekly review: progress, blockers, and one change for next week.',
+        'Set the next milestone tied to your long-term goal outcome.',
+      ],
+    },
+  ];
+
+  const riskNotes = riskRows.slice(0, 3).map((row) => {
+    const firstAction = Array.isArray(row.actions) && row.actions[0] ? row.actions[0] : 'Review and adjust plan.';
+    return {
+      goalTitle: row.goalTitle,
+      riskLevel: row.riskLevel || 'low',
+      recommendation: firstAction,
+    };
+  });
+
+  const deviceSuggestions = topDevices.slice(0, 4).map((row) => {
+    const focus = row.device || 'unknown';
+    const intensity = row.minutes >= 120 ? 'high' : row.minutes >= 60 ? 'moderate' : 'light';
+    return {
+      device: focus,
+      minutes: row.minutes,
+      events: row.events,
+      suggestion: intensity === 'high'
+        ? `Prioritize stronger boundaries on ${focus} first; this device contributes most usage.`
+        : `Use gentle nudges on ${focus} and keep consistency with your primary device plan.`,
+    };
+  });
+
+  return {
+    goal: input.goal,
+    targetDays: input.targetDays,
+    targetDevice: input.targetDevice,
+    analytics: {
+      totalMinutes: summary?.totals?.totalMinutes || 0,
+      totalEvents: summary?.totals?.totalEvents || 0,
+      activeDays: summary?.totals?.activeDays || 0,
+      topCategories: topCategories.slice(0, 5),
+      topDevices: topDevices.slice(0, 5),
+      platformBreakdown: Array.isArray(summary.platformBreakdown) ? summary.platformBreakdown.slice(0, 5) : [],
+    },
+    milestones,
+    riskNotes,
+    deviceSuggestions,
+  };
+}
+
 function createApp() {
   validateSaltConfiguration();
 
@@ -520,6 +635,27 @@ function createApp() {
       return res.status(404).json({ error: 'Goal not found.' });
     }
     return res.json({ deleted: true });
+  });
+
+  app.post('/api/goals/attainment-plan', resolveUser, (req, res) => {
+    const input = sanitizeGoalAttainmentInput(req.body || {});
+    if (!input) {
+      return res.status(400).json({ error: 'Goal text is required.' });
+    }
+
+    const summary = getSummary(req.user.id, input.targetDays, input.targetDevice);
+    const habitPlan = {
+      interventions: getHabitGoalProgress(req.user.id, input.targetDays).map((row) => ({
+        goalTitle: row.goal.title,
+        riskLevel: row.status === 'off-track' ? 'high' : row.status === 'at-risk' ? 'moderate' : 'low',
+        actions: [
+          row.goal.interventionPlan || 'Set a specific trigger-action rule for this goal.',
+        ],
+      })),
+    };
+
+    const plan = buildGoalAttainmentPlan(summary, habitPlan, input);
+    return res.status(201).json({ plan });
   });
 
   app.get('/api/habits/plan', resolveUser, (req, res) => {

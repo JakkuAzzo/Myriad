@@ -26,6 +26,16 @@ const saveGoalBtn = document.getElementById('saveGoalBtn');
 const goalStatus = document.getElementById('goalStatus');
 const goalList = document.getElementById('goalList');
 const interventionList = document.getElementById('interventionList');
+const attainmentGoalInput = document.getElementById('attainmentGoalInput');
+const attainmentDaysInput = document.getElementById('attainmentDaysInput');
+const attainmentDeviceInput = document.getElementById('attainmentDeviceInput');
+const generatePlanBtn = document.getElementById('generatePlanBtn');
+const attainmentStatus = document.getElementById('attainmentStatus');
+const attainmentSummary = document.getElementById('attainmentSummary');
+const attainmentMilestones = document.getElementById('attainmentMilestones');
+const attainmentDeviceSuggestions = document.getElementById('attainmentDeviceSuggestions');
+const attainmentRiskNotes = document.getElementById('attainmentRiskNotes');
+const attainmentAnalytics = document.getElementById('attainmentAnalytics');
 
 function getToken() {
   return localStorage.getItem('myriadToken') || '';
@@ -245,6 +255,89 @@ function renderInterventions(plan) {
 
     li.appendChild(ul);
     interventionList.appendChild(li);
+  }
+}
+
+function resetList(el, emptyText) {
+  el.innerHTML = '';
+  const li = document.createElement('li');
+  li.textContent = emptyText;
+  el.appendChild(li);
+}
+
+function renderGoalAttainmentPlan(plan) {
+  if (!plan) {
+    attainmentSummary.textContent = 'No plan generated yet.';
+    resetList(attainmentMilestones, 'No milestones yet.');
+    resetList(attainmentDeviceSuggestions, 'No device suggestions yet.');
+    resetList(attainmentRiskNotes, 'No risk notes yet.');
+    resetList(attainmentAnalytics, 'No goal analytics yet.');
+    return;
+  }
+
+  const analytics = plan.analytics || {};
+  attainmentSummary.textContent = `Goal: ${plan.goal} | Window: ${plan.targetDays} days | Device scope: ${plan.targetDevice}`;
+
+  attainmentMilestones.innerHTML = '';
+  for (const milestone of plan.milestones || []) {
+    const li = document.createElement('li');
+    const heading = document.createElement('strong');
+    heading.textContent = `Week ${milestone.week}: ${milestone.title}`;
+    li.appendChild(heading);
+
+    const ul = document.createElement('ul');
+    for (const action of milestone.actions || []) {
+      const actionLi = document.createElement('li');
+      actionLi.textContent = action;
+      ul.appendChild(actionLi);
+    }
+    li.appendChild(ul);
+    attainmentMilestones.appendChild(li);
+  }
+
+  attainmentDeviceSuggestions.innerHTML = '';
+  const deviceSuggestions = plan.deviceSuggestions || [];
+  if (!deviceSuggestions.length) {
+    resetList(attainmentDeviceSuggestions, 'No device-specific suggestions available yet.');
+  } else {
+    for (const row of deviceSuggestions) {
+      const li = document.createElement('li');
+      li.textContent = `${row.device}: ${row.suggestion} (${row.minutes} min, ${row.events} events)`;
+      attainmentDeviceSuggestions.appendChild(li);
+    }
+  }
+
+  attainmentRiskNotes.innerHTML = '';
+  const riskNotes = plan.riskNotes || [];
+  if (!riskNotes.length) {
+    resetList(attainmentRiskNotes, 'No elevated risk notes currently.');
+  } else {
+    for (const row of riskNotes) {
+      const li = document.createElement('li');
+      li.textContent = `${row.goalTitle} (${row.riskLevel}): ${row.recommendation}`;
+      attainmentRiskNotes.appendChild(li);
+    }
+  }
+
+  attainmentAnalytics.innerHTML = '';
+  const analyticsRows = [
+    `Total minutes: ${analytics.totalMinutes || 0}`,
+    `Total events: ${analytics.totalEvents || 0}`,
+    `Active days: ${analytics.activeDays || 0}`,
+  ];
+  const topCategory = (analytics.topCategories || [])[0];
+  const topDevice = (analytics.topDevices || [])[0];
+  if (topCategory) {
+    analyticsRows.push(`Top category: ${topCategory.category} (${topCategory.minutes} min)`);
+  }
+  if (topDevice) {
+    analyticsRows.push(`Top device: ${topDevice.device} (${topDevice.minutes} min)`);
+  }
+
+  for (const row of analyticsRows) {
+    const li = document.createElement('li');
+    li.textContent = row;
+    attainmentAnalytics.appendChild(li);
   }
 }
 
@@ -473,6 +566,32 @@ saveGoalBtn.addEventListener('click', async () => {
   await refreshHabitPlan();
 });
 
+generatePlanBtn.addEventListener('click', async () => {
+  const goal = attainmentGoalInput.value.trim();
+  const targetDays = Number(attainmentDaysInput.value);
+  const targetDevice = attainmentDeviceInput.value;
+
+  attainmentStatus.textContent = '';
+
+  if (!goal) {
+    attainmentStatus.textContent = 'Enter a goal first.';
+    return;
+  }
+
+  try {
+    const response = await call('/api/goals/attainment-plan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ goal, targetDays, targetDevice }),
+    });
+    const payload = await response.json();
+    renderGoalAttainmentPlan(payload.plan || null);
+    attainmentStatus.textContent = 'Goal attainment plan generated.';
+  } catch (err) {
+    attainmentStatus.textContent = err.message;
+  }
+});
+
 async function checkAndSendNudges() {
   if (!window.myriadDesktop) {
     return;
@@ -511,6 +630,7 @@ async function checkAndSendNudges() {
 (async function init() {
   await syncConsent();
   await refreshDashboard();
+  renderGoalAttainmentPlan(null);
 
   if (window.myriadDesktop) {
     await checkAndSendNudges();

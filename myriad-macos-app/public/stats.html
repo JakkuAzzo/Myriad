@@ -78,6 +78,44 @@
         <ul id="interventionList"></ul>
       </section>
 
+      <section class="panel">
+        <h2>Goal Attainment Planner</h2>
+        <p class="muted">Enter a real goal and Myriad will break it into manageable steps using your cross-device analytics.</p>
+        <div class="form-row">
+          <input id="attainmentGoalInput" type="text" placeholder="Goal to attain (e.g. Finish dissertation chapter 2)" />
+          <input id="attainmentDaysInput" type="number" min="7" max="180" value="30" placeholder="Target days" />
+          <select id="attainmentDeviceInput">
+            <option value="all" selected>All devices</option>
+            <option value="phone">Phone</option>
+            <option value="laptop">Laptop</option>
+            <option value="tablet">Tablet</option>
+            <option value="workstation">Workstation</option>
+            <option value="other">Other</option>
+          </select>
+          <button id="generatePlanBtn">Generate Plan</button>
+        </div>
+        <p id="attainmentStatus" class="muted"></p>
+        <div id="attainmentSummary" class="muted"></div>
+        <div class="grid-two" id="attainmentOutputs">
+          <article>
+            <h3>Milestones</h3>
+            <ul id="attainmentMilestones"></ul>
+          </article>
+          <article>
+            <h3>Device Suggestions</h3>
+            <ul id="attainmentDeviceSuggestions"></ul>
+          </article>
+          <article>
+            <h3>Risk Notes</h3>
+            <ul id="attainmentRiskNotes"></ul>
+          </article>
+          <article>
+            <h3>Goal Analytics</h3>
+            <ul id="attainmentAnalytics"></ul>
+          </article>
+        </div>
+      </section>
+
       <section class="grid">
         <article class="panel chart-panel">
           <h2>Active Hours</h2>

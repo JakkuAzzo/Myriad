@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
+import { createRequire } from 'node:module';
 import { spawn, spawnSync } from 'node:child_process';
 
 const projectRoot = path.resolve(decodeURIComponent(path.dirname(new URL(import.meta.url).pathname)), '..');
@@ -17,6 +18,11 @@ const simulatorName = process.env.MYRIAD_IOS_SIM_NAME || 'iPhone 16';
 const recordSeconds = Number.isFinite(Number(process.env.MYRIAD_IOS_RECORD_SECONDS))
   ? Math.max(8, Number(process.env.MYRIAD_IOS_RECORD_SECONDS))
   : 25;
+const skipBuild = process.env.MYRIAD_IOS_SKIP_BUILD === 'true';
+const require = createRequire(import.meta.url);
+const backendPort = Number.isFinite(Number(process.env.MYRIAD_IOS_BACKEND_PORT))
+  ? Math.max(1, Number(process.env.MYRIAD_IOS_BACKEND_PORT))
+  : 3000;
 
 function run(command, args, options = {}) {
   const result = spawnSync(command, args, {
@@ -36,6 +42,45 @@ function run(command, args, options = {}) {
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function waitForHealth(url, timeoutMs = 20000) {
+  const started = Date.now();
+  while (Date.now() - started < timeoutMs) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        return true;
+      }
+    } catch (_) {
+      // Ignore and retry.
+    }
+    await sleep(300);
+  }
+  return false;
+}
+
+async function startBackendIfNeeded() {
+  const healthUrl = `http://127.0.0.1:${backendPort}/api/health`;
+  if (await waitForHealth(healthUrl, 1500)) {
+    return { handle: null, baseUrl: `http://127.0.0.1:${backendPort}` };
+  }
+
+  const { createApp } = require(path.join(projectRoot, 'src', 'server.js'));
+  const app = createApp();
+
+  const handle = await new Promise((resolve, reject) => {
+    const server = app.listen(backendPort, () => resolve(server));
+    server.on('error', (err) => reject(err));
+  });
+
+  const healthy = await waitForHealth(healthUrl, 12000);
+  if (!healthy) {
+    await new Promise((resolve) => handle.close(() => resolve()));
+    throw new Error(`Backend did not become healthy at ${healthUrl}`);
+  }
+
+  return { handle, baseUrl: `http://127.0.0.1:${backendPort}` };
 }
 
 function findBootedDevice() {
@@ -103,68 +148,91 @@ function convertToMp4IfRequested(inputPath, outputPath) {
 async function main() {
   fs.mkdirSync(artifactsDir, { recursive: true });
   fs.mkdirSync(derivedData, { recursive: true });
+  if (fs.existsSync(outputMov)) {
+    fs.rmSync(outputMov, { force: true });
+  }
+  if (fs.existsSync(outputMp4)) {
+    fs.rmSync(outputMp4, { force: true });
+  }
 
-  let device = findBootedDevice();
-  if (!device) {
-    device = findAvailableDeviceByName(simulatorName);
+  const backend = await startBackendIfNeeded();
+
+  try {
+    let device = findAvailableDeviceByName(simulatorName);
+    if (!device) {
+      device = findBootedDevice();
+    }
     if (!device) {
       throw new Error(`No available simulator found matching '${simulatorName}'.`);
     }
-    run('xcrun', ['simctl', 'boot', device.udid]);
-  }
 
-  run('xcrun', ['simctl', 'bootstatus', device.udid, '-b']);
-
-  const build = spawnSync(
-    'xcodebuild',
-    [
-      '-project', xcodeProject,
-      '-scheme', scheme,
-      '-configuration', 'Debug',
-      '-destination', `platform=iOS Simulator,id=${device.udid}`,
-      '-derivedDataPath', derivedData,
-      'build',
-    ],
-    {
-      cwd: iosRoot,
-      stdio: 'inherit',
-      encoding: 'utf8',
+    if (device.state !== 'Booted') {
+      run('xcrun', ['simctl', 'boot', device.udid]);
     }
-  );
-  if (build.status !== 0) {
-    throw new Error('xcodebuild failed for iOS simulator recording.');
+
+    run('xcrun', ['simctl', 'bootstatus', device.udid, '-b']);
+
+    const appPath = path.join(derivedData, 'Build', 'Products', 'Debug-iphonesimulator', `${scheme}.app`);
+    if (!skipBuild) {
+      const build = spawnSync(
+        'xcodebuild',
+        [
+          '-project', xcodeProject,
+          '-scheme', scheme,
+          '-configuration', 'Debug',
+          '-destination', `platform=iOS Simulator,id=${device.udid}`,
+          '-derivedDataPath', derivedData,
+          'build',
+        ],
+        {
+          cwd: iosRoot,
+          stdio: 'inherit',
+          encoding: 'utf8',
+        }
+      );
+      if (build.status !== 0) {
+        throw new Error('xcodebuild failed for iOS simulator recording.');
+      }
+    }
+
+    if (!fs.existsSync(appPath)) {
+      if (skipBuild) {
+        throw new Error(`Build skipped and no existing app found at ${appPath}`);
+      }
+      throw new Error(`Built app not found at ${appPath}`);
+    }
+
+    run('xcrun', ['simctl', 'install', device.udid, appPath]);
+
+    const bundleId = run('/usr/libexec/PlistBuddy', ['-c', 'Print:CFBundleIdentifier', path.join(appPath, 'Info.plist')]).trim();
+    run('xcrun', ['simctl', 'launch', device.udid, bundleId]);
+
+    const recorder = spawn('xcrun', ['simctl', 'io', device.udid, 'recordVideo', outputMov], {
+      stdio: ['ignore', 'ignore', 'pipe'],
+    });
+
+    let recorderError = '';
+    recorder.stderr.on('data', (buf) => {
+      recorderError += String(buf || '');
+    });
+
+    await sleep(recordSeconds * 1000);
+
+    recorder.kill('SIGINT');
+    await new Promise((resolve) => recorder.on('exit', () => resolve()));
+
+    if (!fs.existsSync(outputMov)) {
+      throw new Error(`Simulator recording was not produced. ${recorderError}`);
+    }
+
+    console.log(`iOS simulator video created: ${outputMov}`);
+    console.log(`iOS recording used backend at ${backend.baseUrl}`);
+    convertToMp4IfRequested(outputMov, outputMp4);
+  } finally {
+    if (backend.handle) {
+      await new Promise((resolve) => backend.handle.close(() => resolve()));
+    }
   }
-
-  const appPath = path.join(derivedData, 'Build', 'Products', 'Debug-iphonesimulator', `${scheme}.app`);
-  if (!fs.existsSync(appPath)) {
-    throw new Error(`Built app not found at ${appPath}`);
-  }
-
-  run('xcrun', ['simctl', 'install', device.udid, appPath]);
-
-  const bundleId = run('/usr/libexec/PlistBuddy', ['-c', 'Print:CFBundleIdentifier', path.join(appPath, 'Info.plist')]).trim();
-  run('xcrun', ['simctl', 'launch', device.udid, bundleId]);
-
-  const recorder = spawn('xcrun', ['simctl', 'io', device.udid, 'recordVideo', outputMov], {
-    stdio: ['ignore', 'ignore', 'pipe'],
-  });
-
-  let recorderError = '';
-  recorder.stderr.on('data', (buf) => {
-    recorderError += String(buf || '');
-  });
-
-  await sleep(recordSeconds * 1000);
-
-  recorder.kill('SIGINT');
-  await new Promise((resolve) => recorder.on('exit', () => resolve()));
-
-  if (!fs.existsSync(outputMov)) {
-    throw new Error(`Simulator recording was not produced. ${recorderError}`);
-  }
-
-  console.log(`iOS simulator video created: ${outputMov}`);
-  convertToMp4IfRequested(outputMov, outputMp4);
 }
 
 main().catch((error) => {

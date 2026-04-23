@@ -1,0 +1,30 @@
+[
+  {
+    "index": 1,
+    "title": "E1. Use Case Overview",
+    "mermaidFile": "/Users/nathanbrown-bennett/Said Osman/myriad-macos-app/artifacts/dissertation/figures/01-e1-use-case-overview.mmd",
+    "imageFile": "/Users/nathanbrown-bennett/Said Osman/myriad-macos-app/artifacts/dissertation/figures/01-e1-use-case-overview.png",
+    "caption": "Figure E1: E1. Use Case Overview"
+  },
+  {
+    "index": 2,
+    "title": "E2. Component Diagram",
+    "mermaidFile": "/Users/nathanbrown-bennett/Said Osman/myriad-macos-app/artifacts/dissertation/figures/02-e2-component-diagram.mmd",
+    "imageFile": "/Users/nathanbrown-bennett/Said Osman/myriad-macos-app/artifacts/dissertation/figures/02-e2-component-diagram.png",
+    "caption": "Figure E2: E2. Component Diagram"
+  },
+  {
+    "index": 3,
+    "title": "E3. Sequence Diagram: Ingestion to Insight",
+    "mermaidFile": "/Users/nathanbrown-bennett/Said Osman/myriad-macos-app/artifacts/dissertation/figures/03-e3-sequence-diagram-ingestion-to-insight.mmd",
+    "imageFile": "/Users/nathanbrown-bennett/Said Osman/myriad-macos-app/artifacts/dissertation/figures/03-e3-sequence-diagram-ingestion-to-insight.png",
+    "caption": "Figure E3: E3. Sequence Diagram: Ingestion to Insight"
+  },
+  {
+    "index": 4,
+    "title": "E4. Activity Flow: Behavior-Change Cycle",
+    "mermaidFile": "/Users/nathanbrown-bennett/Said Osman/myriad-macos-app/artifacts/dissertation/figures/04-e4-activity-flow-behavior-change-cycle.mmd",
+    "imageFile": "/Users/nathanbrown-bennett/Said Osman/myriad-macos-app/artifacts/dissertation/figures/04-e4-activity-flow-behavior-change-cycle.png",
+    "caption": "Figure E4: E4. Activity Flow: Behavior-Change Cycle"
+  }
+]

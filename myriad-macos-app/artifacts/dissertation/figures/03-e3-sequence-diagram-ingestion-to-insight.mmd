@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant Client
+    participant API as Express API
+    participant Privacy as Anonymize Service
+    participant DB as SQLite
+
+    Client->>API: POST /api/events (event payload)
+    API->>API: Consent check
+    API->>Privacy: anonymizeIdentifier(identifier)
+    Privacy-->>API: identity_hash
+    API->>DB: insert event row
+    DB-->>API: persisted
+    API-->>Client: 201 created
+
+    Client->>API: GET /api/summary?days=7
+    API->>DB: aggregate by category/device/time
+    DB-->>API: summary dataset
+    API-->>Client: summary JSON

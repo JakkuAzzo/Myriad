@@ -1,0 +1,9 @@
+flowchart TD
+    A[Import events] --> B[View dashboard signals]
+    B --> C[Create or update goal]
+    C --> D[Receive intervention plan]
+    D --> E[Apply intervention in daily routine]
+    E --> F[Review progress]
+    F --> G{Goal achieved?}
+    G -- No --> C
+    G -- Yes --> H[Set next improvement target]

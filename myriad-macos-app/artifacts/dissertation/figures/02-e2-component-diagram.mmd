@@ -1,0 +1,30 @@
+flowchart TB
+    subgraph Client Layer
+      UI[Web UI / Electron Shell]
+      IOS[iOS Client]
+    end
+
+    subgraph Application Layer
+      API[Express REST API]
+      AUTH[Authentication + Consent Guard]
+      IMPORT[Connector Parsing]
+      ANALYTICS[Summary + Habit Planner]
+      PRIVACY[Pseudonymization Service]
+    end
+
+    subgraph Data Layer
+      SQLITE[(SQLite)]
+      CACHE[(Summary Cache)]
+      GOALS[(Habit Goals)]
+    end
+
+    UI --> API
+    IOS --> API
+    API --> AUTH
+    API --> IMPORT
+    API --> ANALYTICS
+    IMPORT --> PRIVACY
+    AUTH --> SQLITE
+    ANALYTICS --> SQLITE
+    ANALYTICS --> CACHE
+    ANALYTICS --> GOALS

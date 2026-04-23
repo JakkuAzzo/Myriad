@@ -1,0 +1,19 @@
+requirement_id,type,requirement,evidence_artifact,implementation_reference,verification_reference,status
+FR-01,Functional,User can register and login with local credentials,test/api.test.js auth register/login + me,src/server.js auth endpoints,test/api.test.js,Implemented
+FR-02,Functional,User can ingest events from API payloads,test/api.test.js events ingestion tests,src/server.js /api/events and /api/events/batch,test/api.test.js,Implemented
+FR-03,Functional,System deduplicates events using external IDs,test/api.test.js batch ingest supports idempotent external ids,src/db.js unique index user+external_id,test/api.test.js,Implemented
+FR-04,Functional,User can import WhatsApp text exports,test/api.test.js whatsapp import test,src/connectors.js and src/server.js import routes,test/api.test.js,Implemented
+FR-05,Functional,User can import Telegram exports,test/api.test.js telegram import test,src/connectors.js and src/server.js upload route,test/api.test.js,Implemented
+FR-06,Functional,User can import browser history,test/api.test.js browser history import test,src/connectors.js and src/server.js import route,test/api.test.js,Implemented
+FR-07,Functional,User can create/list/delete habit goals,test/api.test.js habit goals workflow,src/db.js habit_goals + src/server.js habits routes,test/api.test.js and test/e2e.ui.test.js,Implemented
+FR-08,Functional,User can view summary analytics by time period,test/api.test.js summary endpoint checks,src/db.js summary queries + src/server.js summary routes,test/api.test.js and test/e2e.ui.test.js,Implemented
+FR-09,Functional,User can export stored event data,test/api.test.js events export checks,src/server.js /api/events/export,test/api.test.js,Implemented
+FR-10,Functional,User can delete all stored event data,test/e2e.ui.test.js delete data flow,src/server.js /api/events delete route,test/e2e.ui.test.js,Implemented
+FR-11,Functional,User can enable or disable consent,test/e2e.ui.test.js consent toggle and 403 expectation,src/server.js /api/consent + consent check,test/api.test.js and test/e2e.ui.test.js,Implemented
+FR-12,Functional,Admin can request global aggregate summary,test/api.test.js global summary auth test,src/server.js /api/summary/global,test/api.test.js,Implemented
+NFR-01,Privacy,Raw identifiers are pseudonymized before persistence,test/api.test.js export does not leak raw identifiers,src/anonymize.js and src/server.js sanitizeEvent,test/api.test.js and test/anonymize.test.js,Implemented
+NFR-02,Privacy,Data remains local-first with SQLite storage,README architecture and privacy model,src/db.js local SQLite file initialization,architecture review and local run checks,Implemented
+NFR-03,Security,Production/strict mode requires non-default anonymization salt,test/anonymize.test.js strict mode validations,src/anonymize.js validateSaltConfiguration,test/anonymize.test.js,Implemented
+NFR-04,Reliability,Schema supports migration from legacy settings/event variants,db migration code paths in src/db.js,src/db.js migration helper blocks,migration code inspection,Implemented
+NFR-05,Performance,Event and summary queries are index-backed,CREATE INDEX statements in src/db.js,src/db.js index declarations,query path inspection,Implemented
+NFR-06,Usability,System supports task completion for core flows,artifacts/usability/results-template.csv and summary,public UI + API endpoints,usability protocol and e2e.ui test,Partially Validated
